@@ -19,14 +19,14 @@
                     </span>
                 </p>
                 <p class="no-margin">
-                    <span class="month-expense" v-if="loading">0.00 USD</span>
+                    <span class="month-expense" v-if="loading">0 VND</span>
                     <span class="month-expense" v-else-if="!loading">{{ getDisplayExpenseAmount(transactionOverview.thisMonth) }}</span>
                     <f7-link class="margin-left-half" @click="showAmountInHomePage = !showAmountInHomePage">
                         <f7-icon class="ebk-hide-icon" :f7="showAmountInHomePage ? 'eye_slash_fill' : 'eye_fill'"></f7-icon>
                     </f7-link>
                 </p>
                 <p class="no-margin">
-                    <small class="home-summary-misc" v-if="loading">Monthly income 0.00 USD</small>
+                    <small class="home-summary-misc" v-if="loading">Monthly income 0 VND</small>
                     <small class="home-summary-misc" v-else-if="!loading">
                         <span>{{ $t('Monthly income') }}</span>
                         <span>{{ getDisplayIncomeAmount(transactionOverview.thisMonth) }}</span>
@@ -55,11 +55,11 @@
                 <template #after>
                     <div class="overview-transaction-amount">
                         <div class="text-color-red text-align-right">
-                            <small v-if="loading">0.00 USD</small>
+                            <small v-if="loading">0 VND</small>
                             <small v-else-if="!loading && transactionOverview.today && transactionOverview.today.valid">{{ getDisplayIncomeAmount(transactionOverview.today) }}</small>
                         </div>
                         <div class="text-color-teal text-align-right">
-                            <small v-if="loading">0.00 USD</small>
+                            <small v-if="loading">0 VND</small>
                             <small v-else-if="!loading && transactionOverview.today && transactionOverview.today.valid">{{ getDisplayExpenseAmount(transactionOverview.today) }}</small>
                         </div>
                     </div>
@@ -88,11 +88,11 @@
                 <template #after>
                     <div class="overview-transaction-amount">
                         <div class="text-color-red text-align-right">
-                            <small v-if="loading">0.00 USD</small>
+                            <small v-if="loading">0 VND</small>
                             <small v-else-if="!loading && transactionOverview.thisWeek && transactionOverview.thisWeek.valid">{{ getDisplayIncomeAmount(transactionOverview.thisWeek) }}</small>
                         </div>
                         <div class="text-color-teal text-align-right">
-                            <small v-if="loading">0.00 USD</small>
+                            <small v-if="loading">0 VND</small>
                             <small v-else-if="!loading && transactionOverview.thisWeek && transactionOverview.thisWeek.valid">{{ getDisplayExpenseAmount(transactionOverview.thisWeek) }}</small>
                         </div>
                     </div>
@@ -121,11 +121,11 @@
                 <template #after>
                     <div class="overview-transaction-amount">
                         <div class="text-color-red text-align-right">
-                            <small v-if="loading">0.00 USD</small>
+                            <small v-if="loading">0 VND</small>
                             <small v-else-if="!loading && transactionOverview.thisMonth && transactionOverview.thisMonth.valid">{{ getDisplayIncomeAmount(transactionOverview.thisMonth) }}</small>
                         </div>
                         <div class="text-color-teal text-align-right">
-                            <small v-if="loading">0.00 USD</small>
+                            <small v-if="loading">0 VND</small>
                             <small v-else-if="!loading && transactionOverview.thisMonth && transactionOverview.thisMonth.valid">{{ getDisplayExpenseAmount(transactionOverview.thisMonth) }}</small>
                         </div>
                     </div>
@@ -151,11 +151,11 @@
                 <template #after>
                     <div class="overview-transaction-amount">
                         <div class="text-color-red text-align-right">
-                            <small v-if="loading">0.00 USD</small>
+                            <small v-if="loading">0 VND</small>
                             <small v-else-if="!loading && transactionOverview.thisYear && transactionOverview.thisYear.valid">{{ getDisplayIncomeAmount(transactionOverview.thisYear) }}</small>
                         </div>
                         <div class="text-color-teal text-align-right">
-                            <small v-if="loading">0.00 USD</small>
+                            <small v-if="loading">0 VND</small>
                             <small v-else-if="!loading && transactionOverview.thisYear && transactionOverview.thisYear.valid">{{ getDisplayExpenseAmount(transactionOverview.thisYear) }}</small>
                         </div>
                     </div>

@@ -106,18 +106,14 @@ export function appendThousandsSeparator(value, enable) {
         value = value.substring(1);
     }
 
-    const dotPos = value.indexOf('.');
-    const integer = dotPos < 0 ? value : value.substring(0, dotPos);
-    const decimals = dotPos < 0 ? '' : value.substring(dotPos + 1, value.length);
-
     const finalChars = [];
 
-    for (let i = 0; i < integer.length; i++) {
+    for (let i = 0; i < value.length; i++) {
         if (i % 3 === 0 && i > 0) {
             finalChars.push(',');
         }
 
-        finalChars.push(integer.charAt(integer.length - 1 - i));
+        finalChars.push(value.charAt(value.length - 1 - i));
     }
 
     finalChars.reverse();
@@ -128,11 +124,7 @@ export function appendThousandsSeparator(value, enable) {
         newInteger = `-${newInteger}`;
     }
 
-    if (dotPos < 0) {
-        return newInteger;
-    } else {
-        return `${newInteger}.${decimals}`;
-    }
+    return newInteger;
 }
 
 export function formatPercent(value, precision, lowPrecisionValue) {

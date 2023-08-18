@@ -17,7 +17,7 @@
                     <small class="card-header-content" v-else-if="!loading">{{ $t('Net assets') }}</small>
                 </p>
                 <p class="no-margin">
-                    <span class="net-assets" v-if="loading">0.00 USD</span>
+                    <span class="net-assets" v-if="loading">0 VND</span>
                     <span class="net-assets" v-else-if="!loading">{{ netAssets }}</span>
                     <f7-link class="margin-left-half" @click="showAccountBalance = !showAccountBalance">
                         <f7-icon class="ebk-hide-icon" :f7="showAccountBalance ? 'eye_slash_fill' : 'eye_fill'"></f7-icon>
@@ -43,10 +43,10 @@
                 <f7-list-item group-title :sortable="false">
                     <small>
                         <span>Account Category</span>
-                        <span style="margin-left: 10px">0.00 USD</span>
+                        <span style="margin-left: 10px">0 VND</span>
                     </small>
                 </f7-list-item>
-                <f7-list-item class="nested-list-item" after="0.00 USD" link="#"
+                <f7-list-item class="nested-list-item" after="0 VND" link="#"
                               :key="itemIdx" v-for="itemIdx in (listIdx === 1 ? [ 1 ] : [ 1, 2 ])">
                     <template #media>
                         <f7-icon f7="app_fill"></f7-icon>

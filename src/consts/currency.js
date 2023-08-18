@@ -648,7 +648,7 @@ const allCurrencyDisplayModes = {
     Name: 3
 };
 
-const defaultCurrency = allCurrencies.USD.code;
+const defaultCurrency = allCurrencies.VND.code;
 const defaultCurrencyDisplayMode = allCurrencyDisplayModes.Symbol;
 
 export default {

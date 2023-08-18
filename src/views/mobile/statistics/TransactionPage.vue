@@ -115,7 +115,7 @@
                             </div>
                         </template>
                         <template #after>
-                            <span>0.00 USD</span>
+                            <span>0 VND</span>
                         </template>
                         <template #inner-end>
                             <div class="statistics-item-end">

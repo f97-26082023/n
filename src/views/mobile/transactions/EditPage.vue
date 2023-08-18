@@ -20,7 +20,7 @@
         <f7-list strong inset dividers class="margin-vertical skeleton-text" v-if="loading">
             <f7-list-item
                 class="transaction-edit-amount ebk-large-amount"
-                header="Expense Amount" title="0.00">
+                header="Expense Amount" title="0">
             </f7-list-item>
             <f7-list-item class="list-item-with-header-and-title list-item-title-hide-overflow" header="Category" title="Category Names"></f7-list-item>
             <f7-list-item class="list-item-with-header-and-title" header="Account" title="Account Name"></f7-list-item>

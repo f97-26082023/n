@@ -9,18 +9,15 @@ export function numericCurrencyToString(num, enableThousandsSeparator) {
     }
 
     if (str.length === 0) {
-        str = '0.00';
+        str = '0';
     } else if (str.length === 1) {
-        str = '0.0' + str;
-    } else if (str.length === 2) {
         str = '0.' + str;
     } else {
         let integer = str.substring(0, str.length - 2);
-        let decimals = str.substring(str.length - 2);
 
         integer = appendThousandsSeparator(integer, enableThousandsSeparator);
 
-        str = `${integer}.${decimals}`;
+        str = `${integer}`;
     }
 
     if (negative) {

@@ -51,8 +51,8 @@
                                 <template #title>
                                     <small>YYYY-MM</small>
                                     <small class="transaction-amount-statistics" v-if="showTotalAmountInTransactionListPage">
-                                        <span>0.00 USD</span>
-                                        <span>0.00 USD</span>
+                                        <span>0 VND</span>
+                                        <span>0 VND</span>
                                     </small>
                                     <f7-icon class="combination-list-chevron-icon" f7="chevron_up"></f7-icon>
                                 </template>
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="item-after">
                                                 <div class="transaction-amount">
-                                                    <span>0.00 USD</span>
+                                                    <span>0 VND</span>
                                                 </div>
                                             </div>
                                         </div>
