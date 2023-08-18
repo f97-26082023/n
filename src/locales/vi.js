@@ -6,7 +6,7 @@ export default {
     },
     'default': {
         'currency': 'VND',
-        'firstDayOfWeek': 'Sunday',
+        'firstDayOfWeek': 'Monday',
         'longDateFormat': 'MMDDYYYY',
         'shortDateFormat': 'MMDDYYYY',
         'longTimeFormat': 'HHMMSSA',
