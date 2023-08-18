@@ -1,7 +1,7 @@
 export default {
     'global': {
         'app': {
-            'title': 'ezBookkeeping',
+            'title': 'f97.xyz',
         }
     },
     'default': {
@@ -753,7 +753,7 @@ export default {
     'Select Time': 'Chọn thời gian',
     'Now': 'Hiện tại',
     'Custom': 'Tùy chỉnh',
-    'Pie Chart': 'Biểu đồ hình bánh',
+    'Pie Chart': 'Biểu đồ tròn',
     'Bar Chart': 'Biểu đồ cột',
     'Sort By': 'Sắp xếp theo',
     'User': 'Người dùng',
@@ -1003,8 +1003,8 @@ export default {
     'Timezone': 'Múi Giờ',
     'System Default': 'Mặc Định Hệ Thống',
     'Language Default': 'Mặc Định Ngôn Ngữ',
-    'Auto-update Exchange Rates Data': 'Tự Động Cập Nhật Dữ Liệu Tỷ Giá Hối Đoái',
-    'Enable Thousands Separator': 'Bật Dấu Ngăn Cách Hàng Nghìn',
+    'Auto-update Exchange Rates Data': 'Tự Động Cập Nhật Dữ Liệu Tỷ Giá',
+    'Enable Thousands Separator': 'Dấu Ngăn Cách Hàng Nghìn',
     'Currency Display Mode': 'Chế Độ Hiển Thị Tiền Tệ',
     'Currency Code': 'Mã Tiền Tệ',
     'Currency Name': 'Tên Tiền Tệ',
