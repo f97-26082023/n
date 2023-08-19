@@ -2193,7 +2193,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:^4.2.0":
+"@vitejs/plugin-vue@npm:^4.3.1":
   version: 4.3.1
   resolution: "@vitejs/plugin-vue@npm:4.3.1"
   peerDependencies:
@@ -2322,7 +2322,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vuepic/vue-datepicker@npm:^6.0.0":
+"@vuepic/vue-datepicker@npm:^6.0.1":
   version: 6.0.1
   resolution: "@vuepic/vue-datepicker@npm:6.0.1"
   dependencies:
@@ -3663,9 +3663,9 @@ __metadata:
   resolution: "ezbookkeeping@workspace:."
   dependencies:
     "@mdi/js": ^7.2.96
-    "@vitejs/plugin-vue": ^4.2.0
+    "@vitejs/plugin-vue": ^4.3.1
     "@vue/compiler-sfc": ^3.3.4
-    "@vuepic/vue-datepicker": ^6.0.0
+    "@vuepic/vue-datepicker": ^6.0.1
     axios: ^1.4.0
     cbor-js: ^0.1.0
     clipboard: ^2.0.11
@@ -3677,21 +3677,21 @@ __metadata:
     eslint-plugin-vue: ^9.17.0
     framework7: ^8.3.0
     framework7-icons: ^5.0.5
-    framework7-vue: ^8.2.0
+    framework7-vue: ^8.3.0
     git-rev-sync: ^3.0.2
     js-cookie: ^3.0.5
     leaflet: ^1.9.4
     line-awesome: ^1.3.0
     moment: ^2.29.4
     moment-timezone: ^0.5.43
-    pinia: ^2.1.4
+    pinia: ^2.1.6
     postcss-preset-env: ^9.1.1
     register-service-worker: ^1.7.2
-    sass: ^1.66.0
+    sass: ^1.66.1
     skeleton-elements: ^4.0.1
-    swiper: ^10.0.4
+    swiper: ^10.2.0
     ua-parser-js: ^1.0.35
-    vite: ^4.3.5
+    vite: ^4.4.9
     vite-plugin-pwa: ^0.16.4
     vite-plugin-vuetify: ^1.0.2
     vue: ^3.3.4
@@ -3700,7 +3700,7 @@ __metadata:
     vue-router: ^4.2.4
     vue3-perfect-scrollbar: ^1.6.1
     vuedraggable: ^4.1.0
-    vuetify: ^3.3.11
+    vuetify: ^3.3.13
   languageName: unknown
   linkType: soft
 
@@ -3876,7 +3876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framework7-vue@npm:^8.2.0":
+"framework7-vue@npm:^8.3.0":
   version: 8.3.0
   resolution: "framework7-vue@npm:8.3.0"
   checksum: a3af4490f8de6ff22af7d8066ffd8da2dbef8b012c4b1a02e48106c6fb5983e3bfd7f3e2bc9936c3ea0d4f6af9e88c36f057f4b278995de98eb8f36a4f5b1fd0
@@ -5392,7 +5392,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pinia@npm:^2.1.4":
+"pinia@npm:^2.1.6":
   version: 2.1.6
   resolution: "pinia@npm:2.1.6"
   dependencies:
@@ -6472,7 +6472,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.66.0":
+"sass@npm:^1.66.1":
   version: 1.66.1
   resolution: "sass@npm:1.66.1"
   dependencies:
@@ -6864,7 +6864,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:^10.0.4, swiper@npm:^10.2.0":
+"swiper@npm:^10.2.0":
   version: 10.2.0
   resolution: "swiper@npm:10.2.0"
   checksum: b81fe81c72b92d0c7d0ba0eb1ea96a7e29de6b67d059fc9d01a0c5285dcadd66f25d258f32c05f87bf54663cf8b09d26b38be5029c064c4822768782772cc025
@@ -7193,7 +7193,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^4.3.5":
+"vite@npm:^4.4.9":
   version: 4.4.9
   resolution: "vite@npm:4.4.9"
   dependencies:
@@ -7359,7 +7359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vuetify@npm:^3.3.11":
+"vuetify@npm:^3.3.13":
   version: 3.3.13
   resolution: "vuetify@npm:3.3.13"
   peerDependencies:
