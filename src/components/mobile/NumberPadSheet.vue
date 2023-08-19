@@ -43,11 +43,11 @@
                 <f7-button class="numpad-button numpad-button-function no-right-border" @click="setSymbol('+')">
                     <span class="numpad-button-text numpad-button-text-normal">&plus;</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputThousand()">
-                    <span class="numpad-button-text numpad-button-text-normal">000</span>
-                </f7-button>
                 <f7-button class="numpad-button numpad-button-num" @click="inputNum(0)">
                     <span class="numpad-button-text numpad-button-text-normal">0</span>
+                </f7-button>
+                <f7-button class="numpad-button numpad-button-num" @click="inputThousand()">
+                    <span class="numpad-button-text numpad-button-text-normal">000</span>
                 </f7-button>
                 <f7-button class="numpad-button numpad-button-num" @click="backspace" @taphold="clear()">
                 <span class="numpad-button-text numpad-button-text-normal">
