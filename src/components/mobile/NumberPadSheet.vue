@@ -43,8 +43,8 @@
                 <f7-button class="numpad-button numpad-button-function no-right-border" @click="setSymbol('+')">
                     <span class="numpad-button-text numpad-button-text-normal">&plus;</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputDot()">
-                    <span class="numpad-button-text numpad-button-text-normal">.</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputThousand()">
+                    <span class="numpad-button-text numpad-button-text-normal">000</span>
                 </f7-button>
                 <f7-button class="numpad-button numpad-button-num" @click="inputNum(0)">
                     <span class="numpad-button-text numpad-button-text-normal">0</span>
@@ -203,23 +203,8 @@ export default {
 
             this.currentValue = newValue;
         },
-        inputDot() {
-            if (this.currentValue.indexOf('.') >= 0) {
-                return;
-            }
-
-            if (!this.previousValue && this.currentSymbol === '−') {
-                this.currentValue = '-' + this.currentValue;
-                this.currentSymbol = '';
-            }
-
-            if (this.currentValue.length < 1) {
-                this.currentValue = '0';
-            } else if (this.currentValue === '-') {
-                this.currentValue = '-0';
-            }
-
-            this.currentValue = this.currentValue + '.';
+        inputThousand() {
+            this.currentValue = this.currentValue + '000';
         },
         setSymbol(symbol) {
             if (this.currentValue) {
