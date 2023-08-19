@@ -1,4 +1,4 @@
-name: Docker
+name: Docker Snapshot
 
 on:
   release:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   docker-build-release:
