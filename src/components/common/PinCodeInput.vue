@@ -3,12 +3,11 @@
         <div class="pin-code-input pin-code-input-outline"
              :class="{ 'pin-code-input-focued': codes[index].focused }" :key="index"
              v-for="(code, index) in codes">
-            <input min="0" maxlength="1" pattern="[0-9]*"
+            <input min="0" maxlength="1" pattern="[0-9]*" autofocus
                    :ref="`pin-code-input-${index}`"
                    :value="codes[index].value"
                    :type="codes[index].inputType"
                    :disabled="disabled ? 'disabled' : undefined"
-                   :autofocus="autofocus && index === 0 ? 'autofocus' : undefined"
                    @focus="codes[index].focused = true"
                    @blur="codes[index].focused = false"
                    @keydown="onKeydown(index, $event)"

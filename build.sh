@@ -160,7 +160,7 @@ build_backend() {
 
 build_frontend() {
     echo "Pulling frontend dependencies..."
-    npm install
+    yarn
 
     if [ "$NO_LINT" = "0" ]; then
         echo "Executing frontend lint checking..."
