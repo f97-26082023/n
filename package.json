@@ -34,7 +34,7 @@
     "line-awesome": "^1.3.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
-    "pinia": "^2.1.4",
+    "pinia": "^2.1.6",
     "register-service-worker": "^1.7.2",
     "skeleton-elements": "^4.0.1",
     "swiper": "^10.0.4",
