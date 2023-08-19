@@ -1,4 +1,4 @@
-name: Docker Snapshot
+name: Docker Non Snapshot
 
 on:
   push:
