@@ -40,7 +40,7 @@
     "swiper": "^10.0.4",
     "ua-parser-js": "^1.0.35",
     "vue": "^3.3.4",
-    "vue-echarts": "^6.6.0",
+    "vue-echarts": "^6.6.1",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.2.4",
     "vue3-perfect-scrollbar": "^1.6.1",
