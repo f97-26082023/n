@@ -7,14 +7,14 @@
                 <span class="numpad-value" :class="currentDisplayNumClass">{{ currentDisplay }}</span>
             </div>
             <div class="numpad-buttons">
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(7)">
-                    <span class="numpad-button-text numpad-button-text-normal">7</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(1)">
+                    <span class="numpad-button-text numpad-button-text-normal">1</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(8)">
-                    <span class="numpad-button-text numpad-button-text-normal">8</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(2)">
+                    <span class="numpad-button-text numpad-button-text-normal">2</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(9)">
-                    <span class="numpad-button-text numpad-button-text-normal">9</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(3)">
+                    <span class="numpad-button-text numpad-button-text-normal">3</span>
                 </f7-button>
                 <f7-button class="numpad-button numpad-button-function no-right-border" @click="setSymbol('×')">
                     <span class="numpad-button-text numpad-button-text-normal">&times;</span>
@@ -31,14 +31,14 @@
                 <f7-button class="numpad-button numpad-button-function no-right-border" @click="setSymbol('−')">
                     <span class="numpad-button-text numpad-button-text-normal">&minus;</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(1)">
-                    <span class="numpad-button-text numpad-button-text-normal">1</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(7)">
+                    <span class="numpad-button-text numpad-button-text-normal">7</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(2)">
-                    <span class="numpad-button-text numpad-button-text-normal">2</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(8)">
+                    <span class="numpad-button-text numpad-button-text-normal">8</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(3)">
-                    <span class="numpad-button-text numpad-button-text-normal">3</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(9)">
+                    <span class="numpad-button-text numpad-button-text-normal">9</span>
                 </f7-button>
                 <f7-button class="numpad-button numpad-button-function no-right-border" @click="setSymbol('+')">
                     <span class="numpad-button-text numpad-button-text-normal">&plus;</span>
