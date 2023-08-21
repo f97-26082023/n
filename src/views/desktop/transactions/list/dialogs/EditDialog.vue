@@ -54,116 +54,111 @@
                         <v-form class="mt-2">
                             <v-row>
                                 <v-col cols="12" :md="transaction.type === allTransactionTypes.Transfer ? 6 : 12">
-                                    <amount-input persistent-placeholder
-                                                  :disabled="loading || submitting"
+                                    <amount-input class="transaction-edit-amount font-weight-bold"
+                                                  :color="sourceAmountColor"
                                                   :readonly="mode === 'view'"
+                                                  :disabled="loading || submitting"
+                                                  :persistent-placeholder="true"
                                                   :hide="transaction.hideAmount"
                                                   :label="$t(sourceAmountName)"
                                                   :placeholder="$t(sourceAmountName)"
                                                   v-model="transaction.sourceAmount"/>
                                 </v-col>
                                 <v-col cols="12" :md="6" v-if="transaction.type === allTransactionTypes.Transfer">
-                                    <amount-input persistent-placeholder
-                                                  :disabled="loading || submitting"
+                                    <amount-input class="transaction-edit-amount font-weight-bold" color="primary"
                                                   :readonly="mode === 'view'"
+                                                  :disabled="loading || submitting"
+                                                  :persistent-placeholder="true"
                                                   :hide="transaction.hideAmount"
                                                   :label="$t('Transfer In Amount')"
                                                   :placeholder="$t('Transfer In Amount')"
                                                   v-model="transaction.destinationAmount"/>
                                 </v-col>
-                                <v-col cols="12" md="12">
-                                    <v-text-field
-                                        disabled
-                                        persistent-placeholder
-                                        :label="$t('Category')"
-                                        :placeholder="$t('Category')" />
+                                <v-col cols="12" md="12" v-if="transaction.type === allTransactionTypes.Expense">
+                                    <two-column-select primary-key-field="id" primary-value-field="id" primary-title-field="name"
+                                                       primary-icon-field="icon" primary-icon-type="category" primary-color-field="color"
+                                                       primary-sub-items-field="subCategories"
+                                                       secondary-key-field="id" secondary-value-field="id" secondary-title-field="name"
+                                                       secondary-icon-field="icon" secondary-icon-type="category" secondary-color-field="color"
+                                                       :readonly="mode === 'view'"
+                                                       :disabled="loading || submitting || !hasAvailableExpenseCategories"
+                                                       :show-primary-name="true"
+                                                       :label="$t('Category')" :placeholder="$t('Category')"
+                                                       :items="allCategories[allCategoryTypes.Expense]"
+                                                       v-model="transaction.expenseCategory">
+                                    </two-column-select>
+                                </v-col>
+                                <v-col cols="12" md="12" v-if="transaction.type === allTransactionTypes.Income">
+                                    <two-column-select primary-key-field="id" primary-value-field="id" primary-title-field="name"
+                                                       primary-icon-field="icon" primary-icon-type="category" primary-color-field="color"
+                                                       primary-sub-items-field="subCategories"
+                                                       secondary-key-field="id" secondary-value-field="id" secondary-title-field="name"
+                                                       secondary-icon-field="icon" secondary-icon-type="category" secondary-color-field="color"
+                                                       :readonly="mode === 'view'"
+                                                       :disabled="loading || submitting || !hasAvailableIncomeCategories"
+                                                       :show-primary-name="true"
+                                                       :label="$t('Category')" :placeholder="$t('Category')"
+                                                       :items="allCategories[allCategoryTypes.Income]"
+                                                       v-model="transaction.incomeCategory">
+                                    </two-column-select>
+                                </v-col>
+                                <v-col cols="12" md="12" v-if="transaction.type === allTransactionTypes.Transfer">
+                                    <two-column-select primary-key-field="id" primary-value-field="id" primary-title-field="name"
+                                                       primary-icon-field="icon" primary-icon-type="category" primary-color-field="color"
+                                                       primary-sub-items-field="subCategories"
+                                                       secondary-key-field="id" secondary-value-field="id" secondary-title-field="name"
+                                                       secondary-icon-field="icon" secondary-icon-type="category" secondary-color-field="color"
+                                                       :readonly="mode === 'view'"
+                                                       :disabled="loading || submitting || !hasAvailableTransferCategories"
+                                                       :show-primary-name="true"
+                                                       :label="$t('Category')" :placeholder="$t('Category')"
+                                                       :items="allCategories[allCategoryTypes.Transfer]"
+                                                       v-model="transaction.transferCategory">
+                                    </two-column-select>
                                 </v-col>
                                 <v-col cols="12" :md="transaction.type === allTransactionTypes.Transfer ? 6 : 12">
-                                    <v-select
-                                        item-title="name"
-                                        item-value="id"
-                                        persistent-placeholder
-                                        :readonly="mode === 'view'"
-                                        :disabled="loading || submitting || !allVisibleAccounts.length"
-                                        :label="$t(sourceAccountTitle)"
-                                        :placeholder="$t(sourceAccountTitle)"
-                                        :items="allVisibleAccounts"
-                                        :no-data-text="$t('No results')"
-                                        v-model="transaction.sourceAccountId"
-                                    >
-                                        <template #selection="{ item }">
-                                            <v-label class="cursor-pointer" v-if="item && item.value !== 0 && item.value !== '0'">
-                                                <ItemIcon class="mr-2" icon-type="account" size="23px"
-                                                          :icon-id="getAccountNameByKeyValue(transaction.sourceAccountId, 'id', 'icon')"
-                                                          :color="getAccountNameByKeyValue(transaction.sourceAccountId, 'id', 'color')"
-                                                          v-if="getAccountNameByKeyValue(transaction.sourceAccountId, 'id', 'icon')" />
-                                                <span>{{ getAccountNameByKeyValue(transaction.sourceAccountId, 'id', 'name', $t('Not Specified')) }}</span>
-                                            </v-label>
-                                            <v-label v-if="!item || item.value === 0 || item.value === '0'">{{ $t('Not Specified') }}</v-label>
-                                        </template>
-
-                                        <template #item="{ props, item }">
-                                            <v-list-item :value="item.value" v-bind="props">
-                                                <template #title>
-                                                    <v-list-item-title>
-                                                        <div class="d-flex align-center">
-                                                            <ItemIcon icon-type="account"
-                                                                      :icon-id="item.raw.icon" :color="item.raw.color"
-                                                                      v-if="item.raw" />
-                                                            <span class="ml-2">{{ item.title }}</span>
-                                                        </div>
-                                                    </v-list-item-title>
-                                                </template>
-                                            </v-list-item>
-                                        </template>
-                                    </v-select>
+                                    <two-column-select primary-key-field="id" primary-value-field="category"
+                                                       primary-title-field="name" primary-footer-field="displayBalance"
+                                                       primary-icon-field="icon" primary-icon-type="account"
+                                                       primary-sub-items-field="accounts"
+                                                       :primary-title-i18n="true"
+                                                       secondary-key-field="id" secondary-value-field="id"
+                                                       secondary-title-field="name" secondary-footer-field="displayBalance"
+                                                       secondary-icon-field="icon" secondary-icon-type="account" secondary-color-field="color"
+                                                       :readonly="mode === 'view'"
+                                                       :disabled="loading || submitting || !allVisibleAccounts.length"
+                                                       :show-secondary-icon="true"
+                                                       :label="$t(sourceAccountTitle)"
+                                                       :placeholder="$t(sourceAccountTitle)"
+                                                       :items="categorizedAccounts"
+                                                       v-model="transaction.sourceAccountId">
+                                    </two-column-select>
                                 </v-col>
                                 <v-col cols="12" md="6" v-if="transaction.type === allTransactionTypes.Transfer">
-                                    <v-select
-                                        item-title="name"
-                                        item-value="id"
-                                        persistent-placeholder
-                                        :readonly="mode === 'view'"
-                                        :disabled="loading || submitting || !allVisibleAccounts.length"
-                                        :label="$t('Destination Account')"
-                                        :placeholder="$t('Destination Account')"
-                                        :items="allVisibleAccounts"
-                                        :no-data-text="$t('No results')"
-                                        v-model="transaction.destinationAccountId"
-                                    >
-                                        <template #selection="{ item }">
-                                            <v-label class="cursor-pointer" v-if="item && item.value !== 0 && item.value !== '0'">
-                                                <ItemIcon class="mr-2" icon-type="account" size="23px"
-                                                          :icon-id="getAccountNameByKeyValue(transaction.destinationAccountId, 'id', 'icon')"
-                                                          :color="getAccountNameByKeyValue(transaction.destinationAccountId, 'id', 'color')"
-                                                          v-if="getAccountNameByKeyValue(transaction.destinationAccountId, 'id', 'icon')" />
-                                                <span>{{ getAccountNameByKeyValue(transaction.destinationAccountId, 'id', 'name', $t('Not Specified')) }}</span>
-                                            </v-label>
-                                            <v-label v-if="!item || item.value === 0 || item.value === '0'">{{ $t('Not Specified') }}</v-label>
-                                        </template>
-
-                                        <template #item="{ props, item }">
-                                            <v-list-item :value="item.value" v-bind="props">
-                                                <template #title>
-                                                    <v-list-item-title>
-                                                        <div class="d-flex align-center">
-                                                            <ItemIcon icon-type="account"
-                                                                      :icon-id="item.raw.icon" :color="item.raw.color"
-                                                                      v-if="item.raw" />
-                                                            <span class="ml-2">{{ item.title }}</span>
-                                                        </div>
-                                                    </v-list-item-title>
-                                                </template>
-                                            </v-list-item>
-                                        </template>
-                                    </v-select>
+                                    <two-column-select primary-key-field="id" primary-value-field="category"
+                                                       primary-title-field="name" primary-footer-field="displayBalance"
+                                                       primary-icon-field="icon" primary-icon-type="account"
+                                                       primary-sub-items-field="accounts"
+                                                       :primary-title-i18n="true"
+                                                       secondary-key-field="id" secondary-value-field="id"
+                                                       secondary-title-field="name" secondary-footer-field="displayBalance"
+                                                       secondary-icon-field="icon" secondary-icon-type="account" secondary-color-field="color"
+                                                       :readonly="mode === 'view'"
+                                                       :disabled="loading || submitting || !allVisibleAccounts.length"
+                                                       :show-secondary-icon="true"
+                                                       :label="$t('Destination Account')"
+                                                       :placeholder="$t('Destination Account')"
+                                                       :items="categorizedAccounts"
+                                                       v-model="transaction.destinationAccountId">
+                                    </two-column-select>
                                 </v-col>
                                 <v-col cols="12" md="6">
-                                    <v-text-field
-                                        disabled
-                                        persistent-placeholder
+                                    <date-time-select
+                                        :readonly="mode === 'view'"
+                                        :disabled="loading || submitting"
                                         :label="$t('Transaction Time')"
-                                        :placeholder="$t('Transaction Time')" />
+                                        v-model="transaction.time"
+                                        @error="showDateTimeError" />
                                 </v-col>
                                 <v-col cols="12" md="6">
                                     <v-autocomplete
@@ -173,6 +168,7 @@
                                         auto-select-first
                                         persistent-placeholder
                                         :readonly="mode === 'view'"
+                                        :disabled="loading || submitting"
                                         :label="$t('Timezone')"
                                         :placeholder="!transaction.timeZone && transaction.timeZone !== '' ? `(${transactionDisplayTimezone}) ${transactionTimezoneTimeDifference}` : $t('Timezone')"
                                         :items="allTimezones"
@@ -180,7 +176,7 @@
                                         v-model="transaction.timeZone"
                                     >
                                         <template #selection="{ item }">
-                                            <span v-if="transaction.timeZone || transaction.timeZone === ''">
+                                            <span class="text-truncate" v-if="transaction.timeZone || transaction.timeZone === ''">
                                                 {{ item.title }}
                                             </span>
                                         </template>
@@ -217,6 +213,7 @@
                                         chips
                                         :closable-chips="mode !== 'view'"
                                         :readonly="mode === 'view'"
+                                        :disabled="loading || submitting"
                                         :label="$t('Tags')"
                                         :placeholder="$t('None')"
                                         :items="allTags"
@@ -281,8 +278,17 @@
                         {{ $t(saveButtonTitle) }}
                         <v-progress-circular indeterminate size="24" class="ml-2" v-if="submitting"></v-progress-circular>
                     </v-btn>
-                    <v-btn color="secondary" variant="tonal"
-                           :disabled="loading || submitting" @click="cancel">{{ $t(cancelButtonTitle) }}</v-btn>
+                    <v-btn variant="tonal" :disabled="loading || submitting"
+                           v-if="mode === 'view'" @click="duplicate">{{ $t('Duplicate') }}</v-btn>
+                    <v-btn color="warning" variant="tonal" :disabled="loading || submitting"
+                           v-if="mode === 'view'" @click="edit">{{ $t('Edit') }}</v-btn>
+                    <v-btn color="error" variant="tonal" :disabled="loading || submitting"
+                           v-if="mode === 'view'" @click="remove">
+                        {{ $t('Delete') }}
+                        <v-progress-circular indeterminate size="24" class="ml-2" v-if="submitting"></v-progress-circular>
+                    </v-btn>
+                    <v-btn color="secondary" variant="tonal" :disabled="loading || submitting"
+                           @click="cancel">{{ $t(cancelButtonTitle) }}</v-btn>
                 </div>
             </v-card-text>
         </v-card>
@@ -306,11 +312,13 @@ import categoryConstants from '@/consts/category.js';
 import transactionConstants from '@/consts/transaction.js';
 import logger from '@/lib/logger.js';
 import {
-    getNameByKeyValue
-} from '@/lib/common.js';
-import {
-    getUtcOffsetByUtcOffsetMinutes
+    getUtcOffsetByUtcOffsetMinutes,
+    getTimezoneOffsetMinutes,
+    getCurrentUnixTime
 } from '@/lib/datetime.js';
+import {
+    getFirstAvailableCategoryId
+} from '@/lib/category.js';
 import { setTransactionModelByTransaction } from '@/lib/transaction.js';
 import { getMapProvider } from '@/lib/server_settings.js';
 
@@ -419,6 +427,12 @@ export default {
         allVisibleAccounts() {
             return this.accountsStore.allVisiblePlainAccounts;
         },
+        categorizedAccounts() {
+            return this.$locale.getCategorizedAccountsWithDisplayBalance(this.exchangeRatesStore, this.allVisibleAccounts, this.showAccountBalance, this.defaultCurrency, {
+                currencyDisplayMode: this.settingsStore.appSettings.currencyDisplayMode,
+                enableThousandsSeparator: this.settingsStore.appSettings.thousandsSeparator
+            });
+        },
         allAccountsMap() {
             return this.accountsStore.allAccountsMap;
         },
@@ -436,7 +450,7 @@ export default {
                 return false;
             }
 
-            const firstAvailableCategoryId = this.getFirstAvailableCategoryId(this.allCategories[this.allCategoryTypes.Expense]);
+            const firstAvailableCategoryId = getFirstAvailableCategoryId(this.allCategories[this.allCategoryTypes.Expense]);
             return firstAvailableCategoryId !== '';
         },
         hasAvailableIncomeCategories() {
@@ -444,7 +458,7 @@ export default {
                 return false;
             }
 
-            const firstAvailableCategoryId = this.getFirstAvailableCategoryId(this.allCategories[this.allCategoryTypes.Income]);
+            const firstAvailableCategoryId = getFirstAvailableCategoryId(this.allCategories[this.allCategoryTypes.Income]);
             return firstAvailableCategoryId !== '';
         },
         hasAvailableTransferCategories() {
@@ -452,7 +466,7 @@ export default {
                 return false;
             }
 
-            const firstAvailableCategoryId = this.getFirstAvailableCategoryId(this.allCategories[this.allCategoryTypes.Transfer]);
+            const firstAvailableCategoryId = getFirstAvailableCategoryId(this.allCategories[this.allCategoryTypes.Transfer]);
             return firstAvailableCategoryId !== '';
         },
         transactionDisplayTimezone() {
@@ -460,6 +474,17 @@ export default {
         },
         transactionTimezoneTimeDifference() {
             return this.$locale.getTimezoneDifferenceDisplayText(this.transaction.utcOffset);
+        },
+        sourceAmountColor() {
+            if (this.transaction.type === this.allTransactionTypes.Expense) {
+                return 'expense';
+            } else if (this.transaction.type === this.allTransactionTypes.Income) {
+                return 'income';
+            } else if (this.transaction.type === this.allTransactionTypes.Transfer) {
+                return 'primary';
+            }
+
+            return null;
         },
         geoLocationStatusInfo() {
             if (this.geoLocationStatus === 'success') {
@@ -469,6 +494,9 @@ export default {
             } else {
                 return this.$t('No Location');
             }
+        },
+        showAccountBalance() {
+            return this.settingsStore.appSettings.showAccountBalance;
         },
         mapProvider() {
             return getMapProvider();
@@ -535,8 +563,6 @@ export default {
             if (options && options.id) {
                 if (options.currentTransaction) {
                     self.setTransaction(options.currentTransaction, options, true);
-                    self.transaction.sourceAmount = self.transaction.sourceAmount / 100;
-                    self.transaction.destinationAmount = self.transaction.destinationAmount / 100;
                 }
 
                 self.mode = 'view';
@@ -571,8 +597,6 @@ export default {
                 if (options.id && responses[3]) {
                     const transaction = responses[3];
                     self.setTransaction(transaction, options, true);
-                    self.transaction.sourceAmount = self.transaction.sourceAmount / 100;
-                    self.transaction.destinationAmount = self.transaction.destinationAmount / 100;
                 } else {
                     self.setTransaction(null, options, true);
                 }
@@ -603,7 +627,82 @@ export default {
                 return;
             }
 
+            const doSubmit = function () {
+                self.submitting = true;
 
+                self.transactionsStore.saveTransaction({
+                    transaction: self.transaction,
+                    defaultCurrency: self.defaultCurrency,
+                    isEdit: self.mode === 'edit'
+                }).then(() => {
+                    self.submitting = false;
+
+                    if (self.resolve) {
+                        if (self.mode === 'add') {
+                            self.resolve({
+                                message: 'You have added a new transaction'
+                            });
+                        } else if (self.mode === 'edit') {
+                            self.resolve({
+                                message: 'You have saved this transaction'
+                            });
+                        }
+                    }
+
+                    self.showState = false;
+                }).catch(error => {
+                    self.submitting = false;
+
+                    if (!error.processed) {
+                        self.$refs.snackbar.showError(error);
+                    }
+                });
+            };
+
+            if (self.transaction.sourceAmount === 0) {
+                self.$refs.confirmDialog.open('Are you sure you want to save this transaction whose amount is 0?').then(() => {
+                    doSubmit();
+                });
+            } else {
+                doSubmit();
+            }
+        },
+        duplicate() {
+            this.editTransactionId = null;
+            this.transaction.id = null;
+            this.transaction.time = getCurrentUnixTime();
+            this.transaction.timeZone = this.settingsStore.appSettings.timeZone;
+            this.transaction.utcOffset = getTimezoneOffsetMinutes(this.transaction.timeZone);
+            this.transaction.geoLocation = null;
+            this.mode = 'add';
+        },
+        edit() {
+            this.mode = 'edit';
+        },
+        remove() {
+            const self = this;
+
+            self.$refs.confirmDialog.open('Are you sure you want to delete this transaction?').then(() => {
+                self.submitting = true;
+
+                self.transactionsStore.deleteTransaction({
+                    transaction: self.transaction,
+                    defaultCurrency: self.defaultCurrency
+                }).then(() => {
+                    if (self.resolve) {
+                        self.resolve();
+                    }
+
+                    self.submitting = false;
+                    self.showState = false;
+                }).catch(error => {
+                    self.submitting = false;
+
+                    if (!error.processed) {
+                        self.$refs.snackbar.showError(error);
+                    }
+                });
+            });
         },
         cancel() {
             if (this.reject) {
@@ -611,6 +710,9 @@ export default {
             }
 
             this.showState = false;
+        },
+        showDateTimeError(error) {
+            this.$refs.snackbar.showError(error);
         },
         updateGeoLocation(forceUpdate) {
             const self = this;
@@ -657,9 +759,6 @@ export default {
             this.geoLocationStatus = null;
             this.transaction.geoLocation = null;
         },
-        getAccountNameByKeyValue(src, value, keyField, nameField, defaultName) {
-            return getNameByKeyValue(this.allAccounts, src, value, keyField, nameField, defaultName);
-        },
         setTransaction(transaction, options, setContextData) {
             setTransactionModelByTransaction(
                 this.transaction,
@@ -682,6 +781,10 @@ export default {
 </script>
 
 <style>
+.transaction-edit-amount .v-field__field > input {
+    font-size: 1.25rem;
+}
+
 .transaction-edit-timezone.v-input input::placeholder {
     color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity)) !important;
 }
@@ -696,15 +799,21 @@ export default {
     }
 }
 
-@media (min-height: 750px) {
+@media (min-height: 700px) {
     .transaction-edit-map-view {
-        height: 400px;
+        height: 350px;
+    }
+}
+
+@media (min-height: 800px) {
+    .transaction-edit-map-view {
+        height: 450px;
     }
 }
 
 @media (min-height: 900px) {
     .transaction-edit-map-view {
-        height: 500px;
+        height: 550px;
     }
 }
 </style>

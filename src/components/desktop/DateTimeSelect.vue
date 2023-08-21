@@ -1,21 +1,20 @@
 <template>
-    <f7-sheet swipe-to-close swipe-handler=".swipe-handler" class="date-time-selection-sheet" style="height:auto"
-              :opened="show" @sheet:open="onSheetOpen" @sheet:closed="onSheetClosed">
-        <f7-toolbar>
-            <div class="swipe-handler"></div>
-            <div class="left">
-                <f7-link :text="$t('Now')" @click="setCurrentTime"></f7-link>
-            </div>
-            <div class="right">
-                <f7-link :text="$t('Done')" @click="confirm"></f7-link>
-            </div>
-        </f7-toolbar>
-        <f7-page-content>
-            <vue-date-picker inline enable-seconds auto-apply
-                             ref="datetimepicker"
+    <v-select
+        persistent-placeholder
+        :readonly="readonly"
+        :disabled="disabled"
+        :label="label"
+        :menu-props="{ 'content-class': 'date-time-select-menu' }"
+        v-model="dateTime"
+    >
+        <template #selection>
+            <span class="text-truncate cursor-pointer">{{ displayTime }}</span>
+        </template>
+
+        <template #no-data>
+            <vue-date-picker inline vertical time-picker-inline enable-seconds auto-apply
+                             ref="datepicker"
                              month-name-format="long"
-                             six-weeks="center"
-                             class="justify-content-center"
                              :clearable="false"
                              :dark="isDarkMode"
                              :week-start="firstDayOfWeek"
@@ -33,11 +32,13 @@
                     <button class="dp__pm_am_button" tabindex="0" @click="toggle">{{ $t(`datetime.${value}.content`) }}</button>
                 </template>
             </vue-date-picker>
-        </f7-page-content>
-    </f7-sheet>
+        </template>
+    </v-select>
 </template>
 
 <script>
+import { useTheme } from 'vuetify';
+
 import { mapStores } from 'pinia';
 import { useUserStore } from '@/stores/user.js';
 
@@ -45,40 +46,51 @@ import { arrangeArrayWithNewStartIndex } from '@/lib/common.js';
 import {
     getCurrentUnixTime,
     getCurrentDateTime,
-    getUnixTime,
+    getTimezoneOffsetMinutes,
+    getBrowserTimezoneOffsetMinutes,
     getLocalDatetimeFromUnixTime,
-    getYear
+    getActualUnixTimeForStore,
+    getYear, getUnixTime
 } from '@/lib/datetime.js';
 
 export default {
     props: [
         'modelValue',
-        'show'
+        'disabled',
+        'readonly',
+        'label'
     ],
     emits: [
         'update:modelValue',
-        'update:show'
+        'error'
     ],
     data() {
-        const self = this;
-        let value = getCurrentUnixTime();
-
-        if (self.modelValue) {
-            value = self.modelValue;
-        }
-
         return {
             yearRange: [
                 2000,
                 getYear(getCurrentDateTime()) + 1
-            ],
-            dateTime: getLocalDatetimeFromUnixTime(value),
+            ]
         }
     },
     computed: {
         ...mapStores(useUserStore),
+        dateTime: {
+            get: function () {
+                return getLocalDatetimeFromUnixTime(this.modelValue);
+            },
+            set: function (value) {
+                const unixTime = getUnixTime(value);
+
+                if (unixTime < 0) {
+                    this.$emit('error', 'Date is too early');
+                    return;
+                }
+
+                this.$emit('update:modelValue', unixTime);
+            }
+        },
         isDarkMode() {
-            return this.$root.isDarkMode;
+            return this.globalTheme.global.name.value === 'dark';
         },
         firstDayOfWeek() {
             return this.userStore.currentUserFirstDayOfWeek;
@@ -88,36 +100,21 @@ export default {
         },
         is24Hour() {
             return this.$locale.isLongTime24HourFormat(this.userStore);
+        },
+        displayTime() {
+            return this.$locale.formatUnixTimeToLongDateTime(this.userStore, getActualUnixTimeForStore(this.modelValue, getTimezoneOffsetMinutes(), getBrowserTimezoneOffsetMinutes()))
         }
     },
-    methods: {
-        onSheetOpen() {
-            if (this.modelValue) {
-                this.dateTime = getLocalDatetimeFromUnixTime(this.modelValue)
-            }
+    setup() {
+        const theme = useTheme();
 
-            this.$refs.datetimepicker.switchView('calendar');
-        },
-        onSheetClosed() {
-            this.$emit('update:show', false);
-        },
+        return {
+            globalTheme: theme
+        };
+    },
+    methods: {
         setCurrentTime() {
             this.dateTime = getLocalDatetimeFromUnixTime(getCurrentUnixTime())
-        },
-        confirm() {
-            if (!this.dateTime) {
-                return;
-            }
-
-            const unixTime = getUnixTime(this.dateTime);
-
-            if (unixTime < 0) {
-                this.$toast('Date is too early');
-                return;
-            }
-
-            this.$emit('update:modelValue', unixTime);
-            this.$emit('update:show', false);
         },
         getMonthShortName(month) {
             return this.$locale.getMonthShortName(month);
@@ -127,7 +124,11 @@ export default {
 </script>
 
 <style>
-.date-time-selection-sheet .dp__menu {
+.date-time-select-menu {
+    max-height: inherit !important;
+}
+
+.date-time-select-menu .dp__menu {
     border: 0;
 }
 </style>
