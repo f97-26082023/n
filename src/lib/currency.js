@@ -9,7 +9,7 @@ export function numericCurrencyToString(num, enableThousandsSeparator, trimTailZ
     }
 
     let integer = '0';
-    let decimals = '00';
+    let decimals = '';
 
     if (str.length > 2) {
         integer = str.substring(0, str.length - 2);
