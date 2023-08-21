@@ -8,12 +8,17 @@ export function numericCurrencyToString(num, enableThousandsSeparator, trimTailZ
         str = str.substring(1);
     }
 
-    if (str.length === 0) {
-        str = '0';
+    let integer = '0';
+    let decimals = '00';
+
+    if (str.length > 2) {
+        integer = str.substring(0, str.length - 2);
+        decimals = str.substring(str.length - 2);
+    } else if (str.length === 2) {
+        decimals = str;
     } else if (str.length === 1) {
-        str = '0.' + str;
-    } else {
-        let integer = str.substring(0, str.length - 2);
+        decimals = '0' + str;
+    }
 
     if (trimTailZero) {
         if (decimals.charAt(0) === '0' && decimals.charAt(1) === '0') {
@@ -23,7 +28,12 @@ export function numericCurrencyToString(num, enableThousandsSeparator, trimTailZ
         }
     }
 
-        str = `${integer}`;
+    integer = appendThousandsSeparator(integer, enableThousandsSeparator);
+
+    if (decimals !== '') {
+        str = `${integer}.${decimals}`;
+    } else {
+        str = integer;
     }
 
     if (negative) {
