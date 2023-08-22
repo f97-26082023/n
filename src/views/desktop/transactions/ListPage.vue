@@ -99,6 +99,7 @@
                                                         eager location="bottom" max-height="500"
                                                         :disabled="query.type === 1"
                                                         :close-on-content-click="false"
+                                                        v-model="categoryMenuState"
                                                         @update:model-value="scrollCategoryMenuToSelectedItem">
                                                     <template #activator="{ props }">
                                                         <div class="d-flex align-center"
@@ -254,7 +255,8 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr class="transaction-table-row-data text-sm cursor-pointer"
+                                            <tr class="transaction-table-row-data text-sm"
+                                                :class="{ 'cursor-pointer': transaction.type !== allTransactionTypes.ModifyBalance }"
                                                 @click="show(transaction)">
                                                 <td class="transaction-table-column-time">
                                                     <div class="d-flex flex-column">
@@ -399,6 +401,7 @@ export default {
             totalCount: 1,
             searchKeyword: '',
             currentPageTransactions: [],
+            categoryMenuState: false,
             alwaysShowNav: mdAndUp.value,
             showNav: mdAndUp.value,
             showCustomDateRangeDialog: false,
@@ -788,6 +791,8 @@ export default {
             this.$router.push(this.getFilterLinkUrl());
         },
         changeCategoryFilter(categoryId) {
+            this.categoryMenuState = false;
+
             if (this.query.categoryId === categoryId) {
                 return;
             }
@@ -848,6 +853,10 @@ export default {
         },
         show(transaction) {
             const self = this;
+
+            if (transaction.type === self.allTransactionTypes.ModifyBalance) {
+                return;
+            }
 
             self.$refs.editDialog.open({
                 id: transaction.id,

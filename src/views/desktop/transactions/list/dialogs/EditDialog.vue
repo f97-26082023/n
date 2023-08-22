@@ -27,14 +27,17 @@
                 <div class="mb-4">
                     <v-tabs class="v-tabs-pill" direction="vertical" :class="{ 'readonly': mode !== 'add' }"
                             :disabled="loading || submitting" v-model="transaction.type">
-                        <v-tab :value="allTransactionTypes.Expense">
+                        <v-tab :value="allTransactionTypes.Expense" v-if="transaction.type !== allTransactionTypes.ModifyBalance">
                             <span>{{ $t('Expense') }}</span>
                         </v-tab>
-                        <v-tab :value="allTransactionTypes.Income">
+                        <v-tab :value="allTransactionTypes.Income" v-if="transaction.type !== allTransactionTypes.ModifyBalance">
                             <span>{{ $t('Income') }}</span>
                         </v-tab>
-                        <v-tab :value="allTransactionTypes.Transfer">
+                        <v-tab :value="allTransactionTypes.Transfer" v-if="transaction.type !== allTransactionTypes.ModifyBalance">
                             <span>{{ $t('Transfer') }}</span>
+                        </v-tab>
+                        <v-tab :value="allTransactionTypes.ModifyBalance" v-if="transaction.type === allTransactionTypes.ModifyBalance">
+                            <span>{{ $t('Modify Balance') }}</span>
                         </v-tab>
                     </v-tabs>
                     <v-divider class="my-2"/>
@@ -82,7 +85,7 @@
                                                        secondary-icon-field="icon" secondary-icon-type="category" secondary-color-field="color"
                                                        :readonly="mode === 'view'"
                                                        :disabled="loading || submitting || !hasAvailableExpenseCategories"
-                                                       :show-primary-name="true"
+                                                       :show-selection-primary-text="true"
                                                        :label="$t('Category')" :placeholder="$t('Category')"
                                                        :items="allCategories[allCategoryTypes.Expense]"
                                                        v-model="transaction.expenseCategory">
@@ -96,7 +99,7 @@
                                                        secondary-icon-field="icon" secondary-icon-type="category" secondary-color-field="color"
                                                        :readonly="mode === 'view'"
                                                        :disabled="loading || submitting || !hasAvailableIncomeCategories"
-                                                       :show-primary-name="true"
+                                                       :show-selection-primary-text="true"
                                                        :label="$t('Category')" :placeholder="$t('Category')"
                                                        :items="allCategories[allCategoryTypes.Income]"
                                                        v-model="transaction.incomeCategory">
@@ -110,7 +113,7 @@
                                                        secondary-icon-field="icon" secondary-icon-type="category" secondary-color-field="color"
                                                        :readonly="mode === 'view'"
                                                        :disabled="loading || submitting || !hasAvailableTransferCategories"
-                                                       :show-primary-name="true"
+                                                       :show-selection-primary-text="true"
                                                        :label="$t('Category')" :placeholder="$t('Category')"
                                                        :items="allCategories[allCategoryTypes.Transfer]"
                                                        v-model="transaction.transferCategory">
@@ -127,7 +130,7 @@
                                                        secondary-icon-field="icon" secondary-icon-type="account" secondary-color-field="color"
                                                        :readonly="mode === 'view'"
                                                        :disabled="loading || submitting || !allVisibleAccounts.length"
-                                                       :show-secondary-icon="true"
+                                                       :selection-text="sourceAccountName"
                                                        :label="$t(sourceAccountTitle)"
                                                        :placeholder="$t(sourceAccountTitle)"
                                                        :items="categorizedAccounts"
@@ -145,7 +148,7 @@
                                                        secondary-icon-field="icon" secondary-icon-type="account" secondary-color-field="color"
                                                        :readonly="mode === 'view'"
                                                        :disabled="loading || submitting || !allVisibleAccounts.length"
-                                                       :show-secondary-icon="true"
+                                                       :selection-text="destinationAccountName"
                                                        :label="$t('Destination Account')"
                                                        :placeholder="$t('Destination Account')"
                                                        :items="categorizedAccounts"
@@ -189,6 +192,7 @@
                                         :disabled="loading || submitting"
                                         :label="$t('Geographic Location')"
                                         v-model="transaction"
+                                        v-model:menu="geoMenuState"
                                     >
                                         <template #selection>
                                             <span class="cursor-pointer" v-if="transaction.geoLocation">{{ `(${transaction.geoLocation.longitude}, ${transaction.geoLocation.latitude})` }}</span>
@@ -273,17 +277,19 @@
                 </v-window>
             </v-card-text>
             <v-card-text class="overflow-y-visible">
-                <div class="w-100 d-flex justify-center mt-2 mt-sm-4 mt-md-6 gap-4">
+                <div class="w-100 d-flex justify-center flex-wrap mt-2 mt-sm-4 mt-md-6 gap-4">
                     <v-btn :disabled="inputIsEmpty || loading || submitting" v-if="mode !== 'view'" @click="save">
                         {{ $t(saveButtonTitle) }}
                         <v-progress-circular indeterminate size="24" class="ml-2" v-if="submitting"></v-progress-circular>
                     </v-btn>
                     <v-btn variant="tonal" :disabled="loading || submitting"
-                           v-if="mode === 'view'" @click="duplicate">{{ $t('Duplicate') }}</v-btn>
+                           v-if="mode === 'view' && transaction.type !== allTransactionTypes.ModifyBalance"
+                           @click="duplicate">{{ $t('Duplicate') }}</v-btn>
                     <v-btn color="warning" variant="tonal" :disabled="loading || submitting"
-                           v-if="mode === 'view'" @click="edit">{{ $t('Edit') }}</v-btn>
+                           v-if="mode === 'view' && originalTransactionEditable && transaction.type !== allTransactionTypes.ModifyBalance"
+                           @click="edit">{{ $t('Edit') }}</v-btn>
                     <v-btn color="error" variant="tonal" :disabled="loading || submitting"
-                           v-if="mode === 'view'" @click="remove">
+                           v-if="mode === 'view' && originalTransactionEditable" @click="remove">
                         {{ $t('Delete') }}
                         <v-progress-circular indeterminate size="24" class="ml-2" v-if="submitting"></v-progress-circular>
                     </v-btn>
@@ -311,6 +317,9 @@ import { useExchangeRatesStore } from '@/stores/exchangeRates.js';
 import categoryConstants from '@/consts/category.js';
 import transactionConstants from '@/consts/transaction.js';
 import logger from '@/lib/logger.js';
+import {
+    getNameByKeyValue
+} from '@/lib/common.js';
 import {
     getUtcOffsetByUtcOffsetMinutes,
     getTimezoneOffsetMinutes,
@@ -346,9 +355,11 @@ export default {
             mode: 'add',
             activeTab: 'basicInfo',
             editTransactionId: null,
+            originalTransactionEditable: false,
             loading: true,
             transaction: newTransaction,
             geoLocationStatus: null,
+            geoMenuState: false,
             submitting: false,
             isSupportGeoLocation: !!navigator.geolocation,
             resolve: null,
@@ -394,7 +405,7 @@ export default {
             } else if (this.transaction.type === this.allTransactionTypes.Transfer) {
                 return 'Transfer Out Amount';
             } else {
-                return '';
+                return 'Amount';
             }
         },
         sourceAccountTitle() {
@@ -403,7 +414,7 @@ export default {
             } else if (this.transaction.type === this.allTransactionTypes.Transfer) {
                 return 'Source Account';
             } else {
-                return '';
+                return 'Account';
             }
         },
         defaultCurrency() {
@@ -468,6 +479,20 @@ export default {
 
             const firstAvailableCategoryId = getFirstAvailableCategoryId(this.allCategories[this.allCategoryTypes.Transfer]);
             return firstAvailableCategoryId !== '';
+        },
+        sourceAccountName() {
+            if (this.transaction.sourceAccountId) {
+                return getNameByKeyValue(this.allAccounts, this.transaction.sourceAccountId, 'id', 'name');
+            } else {
+                return this.$t('None');
+            }
+        },
+        destinationAccountName() {
+            if (this.transaction.destinationAccountId) {
+                return getNameByKeyValue(this.allAccounts, this.transaction.destinationAccountId, 'id', 'name');
+            } else {
+                return this.$t('None');
+            }
         },
         transactionDisplayTimezone() {
             return `UTC${getUtcOffsetByUtcOffsetMinutes(this.transaction.utcOffset)}`;
@@ -550,6 +575,7 @@ export default {
             self.activeTab = 'basicInfo';
             self.loading = true;
             self.submitting = false;
+            self.originalTransactionEditable = false;
 
             const newTransaction = self.transactionsStore.generateNewTransactionModel(options.type);
             self.setTransaction(newTransaction, options, true);
@@ -597,6 +623,7 @@ export default {
                 if (options.id && responses[3]) {
                     const transaction = responses[3];
                     self.setTransaction(transaction, options, true);
+                    self.originalTransactionEditable = transaction.editable;
                 } else {
                     self.setTransaction(null, options, true);
                 }
@@ -716,6 +743,7 @@ export default {
         },
         updateGeoLocation(forceUpdate) {
             const self = this;
+            self.geoMenuState = false;
 
             if (!self.isSupportGeoLocation) {
                 logger.warn('this browser does not support geo location');
@@ -756,6 +784,7 @@ export default {
             self.geoLocationStatus = 'getting';
         },
         clearGeoLocation() {
+            this.geoMenuState = false;
             this.geoLocationStatus = null;
             this.transaction.geoLocation = null;
         },

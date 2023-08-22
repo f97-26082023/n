@@ -6,18 +6,20 @@
         :label="label"
         :menu-props="{ 'content-class': 'two-column-select-menu' }"
         v-model="currentSecondaryValue"
+        v-model:menu="menuState"
         @update:menu="onMenuStateChanged"
     >
         <template #selection>
             <div class="d-flex align-center text-truncate cursor-pointer">
-                <span class="text-truncate" v-if="!selectedPrimaryItem && !selectedSecondaryItem">{{ noItemDisplayName }}</span>
-                <span class="text-truncate" v-if="showPrimaryName && selectedPrimaryItem">{{ primaryItemDisplayName }}</span>
-                <v-icon class="disabled" :icon="icons.chevronRight" size="23" v-if="showPrimaryName && selectedPrimaryItem && selectedSecondaryItem" />
+                <span class="text-truncate" v-if="selectionText">{{ selectionText }}</span>
+                <span class="text-truncate" v-if="!selectionText && !selectedPrimaryItem && !selectedSecondaryItem">{{ noSelectionText }}</span>
+                <span class="text-truncate" v-if="!selectionText && showSelectionPrimaryText && selectedPrimaryItem">{{ selectionPrimaryItemText }}</span>
+                <v-icon class="disabled" :icon="icons.chevronRight" size="23" v-if="!selectionText && showSelectionPrimaryText && selectedPrimaryItem && selectedSecondaryItem" />
                 <ItemIcon class="mr-2" icon-type="account" size="21.5px"
                           :icon-id="selectedSecondaryItem ? selectedSecondaryItem[secondaryIconField] : null"
                           :color="selectedSecondaryItem ? selectedSecondaryItem[secondaryColorField] : null"
-                          v-if="selectedSecondaryItem && showSecondaryIcon" />
-                <span class="text-truncate" v-if="selectedSecondaryItem">{{ secondaryItemDisplayName }}</span>
+                          v-if="!selectionText && selectedSecondaryItem && showSelectionSecondaryIcon" />
+                <span class="text-truncate" v-if="!selectionText && selectedSecondaryItem">{{ selectionSecondaryItemText }}</span>
             </div>
         </template>
 
@@ -34,9 +36,9 @@
                                           :icon-id="item[primaryIconField]" :color="item[primaryColorField]"></ItemIcon>
                             </template>
                             <template #title>
-                                <div class="list-item-header" v-if="primaryHeaderField">{{ $tIf(item[primaryHeaderField], primaryHeaderI18n) }}</div>
-                                <div>{{ $tIf(item[primaryTitleField], primaryTitleI18n) }}</div>
-                                <div class="list-item-footer" v-if="primaryFooterField">{{ $tIf(item[primaryFooterField], primaryFooterI18n) }}</div>
+                                <div class="list-item-header text-truncate" v-if="primaryHeaderField">{{ $tIf(item[primaryHeaderField], primaryHeaderI18n) }}</div>
+                                <div class="text-truncate">{{ $tIf(item[primaryTitleField], primaryTitleI18n) }}</div>
+                                <div class="list-item-footer text-truncate" v-if="primaryFooterField">{{ $tIf(item[primaryFooterField], primaryFooterI18n) }}</div>
                             </template>
                         </v-list-item>
                     </v-list>
@@ -53,9 +55,9 @@
                                           :icon-id="subItem[secondaryIconField]" :color="subItem[secondaryColorField]"></ItemIcon>
                             </template>
                             <template #title>
-                                <div class="list-item-header" v-if="secondaryHeaderField">{{ $tIf(subItem[secondaryHeaderField], secondaryHeaderI18n) }}</div>
-                                <div>{{ $tIf(subItem[secondaryTitleField], secondaryTitleI18n) }}</div>
-                                <div class="list-item-footer" v-if="secondaryFooterField">{{ $tIf(subItem[secondaryFooterField], secondaryFooterI18n) }}</div>
+                                <div class="list-item-header text-truncate" v-if="secondaryHeaderField">{{ $tIf(subItem[secondaryHeaderField], secondaryHeaderI18n) }}</div>
+                                <div class="text-truncate">{{ $tIf(subItem[secondaryTitleField], secondaryTitleI18n) }}</div>
+                                <div class="list-item-footer text-truncate" v-if="secondaryFooterField">{{ $tIf(subItem[secondaryFooterField], secondaryFooterI18n) }}</div>
                             </template>
                         </v-list-item>
                     </v-list>
@@ -84,8 +86,9 @@ export default {
         'disabled',
         'readonly',
         'label',
-        'showPrimaryName',
-        'showSecondaryIcon',
+        'selectionText',
+        'showSelectionPrimaryText',
+        'showSelectionSecondaryIcon',
         'primaryKeyField',
         'primaryValueField',
         'primaryTitleField',
@@ -117,6 +120,7 @@ export default {
     ],
     data() {
         return {
+            menuState: false,
             icons: {
                 chevronRight: mdiChevronRight
             }
@@ -143,6 +147,7 @@ export default {
                 return this.modelValue;
             },
             set: function (value) {
+                this.menuState = false;
                 this.$emit('update:modelValue', value);
             }
         },
@@ -160,26 +165,26 @@ export default {
                 return null;
             }
         },
-        noItemDisplayName() {
+        noSelectionText() {
             return this.noItemText ? this.noItemText : this.$t('None');
         },
-        primaryItemDisplayName() {
+        selectionPrimaryItemText() {
             if (this.primaryValueField && this.primaryTitleField) {
                 if (this.currentPrimaryValue) {
-                    return getNameByKeyValue(this.items, this.currentPrimaryValue, this.primaryValueField, this.primaryTitleField, this.noItemDisplayName);
+                    return getNameByKeyValue(this.items, this.currentPrimaryValue, this.primaryValueField, this.primaryTitleField, this.noSelectionText);
                 } else {
-                    return this.noItemDisplayName;
+                    return this.noSelectionText;
                 }
             } else {
                 return this.currentPrimaryValue;
             }
         },
-        secondaryItemDisplayName() {
+        selectionSecondaryItemText() {
             if (this.secondaryValueField && this.secondaryTitleField) {
                 if (this.currentSecondaryValue && this.selectedPrimaryItem && this.selectedPrimaryItem[this.primarySubItemsField]) {
-                    return getNameByKeyValue(this.selectedPrimaryItem[this.primarySubItemsField], this.currentSecondaryValue, this.secondaryValueField, this.secondaryTitleField, this.noItemDisplayName);
+                    return getNameByKeyValue(this.selectedPrimaryItem[this.primarySubItemsField], this.currentSecondaryValue, this.secondaryValueField, this.secondaryTitleField, this.noSelectionText);
                 } else {
-                    return this.noItemDisplayName;
+                    return this.noSelectionText;
                 }
             } else {
                 return this.currentSecondaryValue;
