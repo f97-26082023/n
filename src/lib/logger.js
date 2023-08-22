@@ -3,34 +3,34 @@ import { isEnableDebug } from './settings.js';
 function logDebug(msg, obj) {
     if (isEnableDebug()) {
         if (obj) {
-            console.debug('[ezBookkeeping Debug] ' + msg, obj);
+            console.debug('[mn.f97.xyz Debug] ' + msg, obj);
         } else {
-            console.debug('[ezBookkeeping Debug] ' + msg);
+            console.debug('[mn.f97.xyz Debug] ' + msg);
         }
     }
 }
 
 function logInfo(msg, obj) {
     if (obj) {
-        console.info('[ezBookkeeping Info] ' + msg, obj);
+        console.info('[mn.f97.xyz Info] ' + msg, obj);
     } else {
-        console.info('[ezBookkeeping Info] ' + msg);
+        console.info('[mn.f97.xyz Info] ' + msg);
     }
 }
 
 function logWarn(msg, obj) {
     if (obj) {
-        console.warn('[ezBookkeeping Warn] ' + msg, obj);
+        console.warn('[mn.f97.xyz Warn] ' + msg, obj);
     } else {
-        console.warn('[ezBookkeeping Warn] ' + msg);
+        console.warn('[mn.f97.xyz Warn] ' + msg);
     }
 }
 
 function logError(msg, obj) {
     if (obj) {
-        console.error('[ezBookkeeping Error] ' + msg, obj);
+        console.error('[mn.f97.xyz Error] ' + msg, obj);
     } else {
-        console.error('[ezBookkeeping Error] ' + msg);
+        console.error('[mn.f97.xyz Error] ' + msg);
     }
 }
 

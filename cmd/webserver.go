@@ -27,11 +27,11 @@ import (
 // WebServer represents the server command
 var WebServer = &cli.Command{
 	Name:  "server",
-	Usage: "ezBookkeeping web server operation",
+	Usage: "mn.f97.xyz web server operation",
 	Subcommands: []*cli.Command{
 		{
 			Name:   "run",
-			Usage:  "Run ezBookkeeping web server",
+			Usage:  "Run mn.f97.xyz web server",
 			Action: startWebServer,
 		},
 	},

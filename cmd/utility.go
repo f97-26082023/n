@@ -14,7 +14,7 @@ import (
 // Utilities represents the utilities command
 var Utilities = &cli.Command{
 	Name:  "utility",
-	Usage: "ezBookkeeping utilities",
+	Usage: "mn.f97.xyz utilities",
 	Subcommands: []*cli.Command{
 		{
 			Name:   "parse-default-request-id",

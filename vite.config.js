@@ -47,8 +47,8 @@ export default defineConfig(async () => {
                 strategies: 'generateSW',
                 injectRegister: 'null',
                 manifest: {
-                    name: 'ezBookkeeping',
-                    short_name: 'ezBookkeeping',
+                    name: 'mn.f97.xyz',
+                    short_name: 'mn.f97.xyz',
                     description: 'A lightweight personal bookkeeping app hosted by yourself.',
                     theme_color: '#C67E48',
                     background_color: '#F6F7F8',

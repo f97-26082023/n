@@ -35,7 +35,7 @@ export default {
             isProduction: isProduction(),
             devCookiePath: isProduction() ? '' : '/dev/cookies',
             f7params: {
-                name: 'ezBookkeeping',
+                name: 'mn.f97.xyz',
                 theme: 'ios',
                 colors: {
                     primary: '#c67e48'
