@@ -527,8 +527,8 @@ export default {
         sourceAmountClass() {
             const classes = {
                 'readonly': this.mode === 'view',
-                'text-color-teal': this.transaction.type === this.allTransactionTypes.Expense,
-                'text-color-red': this.transaction.type === this.allTransactionTypes.Income,
+                'text-color-red': this.transaction.type === this.allTransactionTypes.Expense,
+                'text-color-teal': this.transaction.type === this.allTransactionTypes.Income,
                 'text-color-primary': this.transaction.type === this.allTransactionTypes.Transfer
             };
 
