@@ -1,4 +1,8 @@
 /** Global style **/
+.item-title {
+    text-transform: capitalize;
+}
+
 html, body {
     position: fixed;
 }
