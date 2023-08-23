@@ -1,4 +1,4 @@
-# mn.f97.xyz
+# n.f97.xyz
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/mayswind/ezbookkeeping/blob/master/LICENSE)
 [![Latest Build](https://img.shields.io/github/actions/workflow/status/mayswind/ezbookkeeping/docker-snapshot.yml?branch=main)](https://github.com/mayswind/ezbookkeeping/actions)
 [![Go Report](https://goreportcard.com/badge/github.com/mayswind/ezbookkeeping)](https://goreportcard.com/report/github.com/mayswind/ezbookkeeping)
@@ -6,7 +6,7 @@
 [![Latest Release](https://img.shields.io/github/release/mayswind/ezbookkeeping.svg?style=flat)](https://github.com/mayswind/ezbookkeeping/releases)
 
 ## Introduction
-mn.f97.xyz is a lightweight personal bookkeeping app hosted by yourself. It can be deployed on almost all platforms, including Windows, macOS and Linux on x86, amd64 and ARM architectures. You can even deploy it on an raspberry device. It also supports many different databases, including sqlite and mysql. With docker, you can just deploy it via one command without complicated configuration.
+n.f97.xyz is a lightweight personal bookkeeping app hosted by yourself. It can be deployed on almost all platforms, including Windows, macOS and Linux on x86, amd64 and ARM architectures. You can even deploy it on an raspberry device. It also supports many different databases, including sqlite and mysql. With docker, you can just deploy it via one command without complicated configuration.
 
 ## Features
 1. Open source & Self-hosted
@@ -32,7 +32,7 @@ mn.f97.xyz is a lightweight personal bookkeeping app hosted by yourself. It can 
 
 ## Screenshots
 ### Mobile Device
-[![mn.f97.xyz](https://raw.githubusercontent.com/wiki/mayswind/ezbookkeeping/img/en.png)](https://raw.githubusercontent.com/wiki/mayswind/ezbookkeeping/img/en.png)
+[![n.f97.xyz](https://raw.githubusercontent.com/wiki/mayswind/ezbookkeeping/img/en.png)](https://raw.githubusercontent.com/wiki/mayswind/ezbookkeeping/img/en.png)
 
 ## Installation
 ### Ship with docker
@@ -51,7 +51,7 @@ Latest release: [https://github.com/mayswind/ezbookkeeping/releases](https://git
 
     $ ./ezbookkeeping server run
 
-mn.f97.xyz will listen at port 8080 as default. Then you can visit http://{YOUR_HOST_ADDRESS}:8080/ .
+n.f97.xyz will listen at port 8080 as default. Then you can visit http://{YOUR_HOST_ADDRESS}:8080/ .
 
 ### Build from source
 Make sure you have [Golang](https://golang.org/), [GCC](http://gcc.gnu.org/), [Node.js](https://nodejs.org/) and [NPM](https://www.npmjs.com/) installed. Then download the source code, and follow these steps:

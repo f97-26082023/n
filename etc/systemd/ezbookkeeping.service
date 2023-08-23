@@ -1,5 +1,5 @@
 [Unit]
-Description=mn.f97.xyz, a lightweight personal bookkeeping app hosted by yourself.
+Description=n.f97.xyz, a lightweight personal bookkeeping app hosted by yourself.
 After=syslog.target
 After=network.target
 After=mariadb.service mysqld.service postgresql.service

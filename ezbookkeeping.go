@@ -29,7 +29,7 @@ func main() {
 	settings.CommitHash = CommitHash
 
 	app := &cli.App{
-		Name:    "mn.f97.xyz",
+		Name:    "n.f97.xyz",
 		Usage:   "A lightweight personal bookkeeping app hosted by yourself.",
 		Version: GetFullVersion(),
 		Commands: []*cli.Command{
@@ -54,7 +54,7 @@ func main() {
 	err := app.Run(os.Args)
 
 	if err != nil {
-		log.Fatalf("Failed to run mn.f97.xyz with %s: %v", os.Args, err)
+		log.Fatalf("Failed to run n.f97.xyz with %s: %v", os.Args, err)
 	}
 }
 

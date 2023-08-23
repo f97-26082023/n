@@ -27,7 +27,7 @@ check_dependency() {
 
 show_help() {
     cat <<-EOF
-mn.f97.xyz build script
+n.f97.xyz build script
 
 Usage:
     build.sh type [options]

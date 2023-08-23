@@ -11,7 +11,7 @@ import (
 // Database represents the database command
 var Database = &cli.Command{
 	Name:  "database",
-	Usage: "mn.f97.xyz database maintenance",
+	Usage: "n.f97.xyz database maintenance",
 	Subcommands: []*cli.Command{
 		{
 			Name:   "update",

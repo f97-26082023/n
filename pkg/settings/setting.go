@@ -98,7 +98,7 @@ const (
 )
 
 const (
-	defaultAppName string = "mn.f97.xyz"
+	defaultAppName string = "n.f97.xyz"
 
 	defaultHttpAddr string = "0.0.0.0"
 	defaultHttpPort uint16 = 8080

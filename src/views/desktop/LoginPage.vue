@@ -22,8 +22,8 @@
                 <div class="d-flex align-center justify-center h-100">
                     <v-card variant="flat" class="mt-0 px-4 pt-12" max-width="500">
                         <v-card-text>
-                            <h5 class="text-h5 mb-3">{{ $t('Welcome to mn.f97.xyz') }}</h5>
-                            <p class="mb-0">{{ $t('Please log in with your mn.f97.xyz account') }}</p>
+                            <h5 class="text-h5 mb-3">{{ $t('Welcome to n.f97.xyz') }}</h5>
+                            <p class="mb-0">{{ $t('Please log in with your n.f97.xyz account') }}</p>
                         </v-card-text>
 
                         <v-card-text class="pb-0 mb-6">
@@ -153,7 +153,7 @@
 
                                 <v-col cols="12" class="text-center text-sm">
                                     <span>Powered by </span>
-                                    <a href="https://github.com/mayswind/ezbookkeeping" target="_blank">mn.f97.xyz</a>&nbsp;<span>{{ version }}</span>
+                                    <a href="https://github.com/mayswind/ezbookkeeping" target="_blank">n.f97.xyz</a>&nbsp;<span>{{ version }}</span>
                                 </v-col>
                             </v-row>
                         </v-card-text>
