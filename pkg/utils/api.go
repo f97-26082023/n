@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/errs"
 )
 
 // PrintJsonSuccessResult writes success response in json format to current http context

@@ -1,8 +1,8 @@
 package middlewares
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/settings"
 )
 
 const tokenCookieParam = "ebk_auth_token"

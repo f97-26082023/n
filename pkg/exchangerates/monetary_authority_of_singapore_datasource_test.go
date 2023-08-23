@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/models"
 )
 
 const monetaryAuthorityOfSingaporeMinimumRequiredContent = "{\n" +

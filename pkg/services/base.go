@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/f97/n/pkg/datastore"
+	"github.com/f97/n/pkg/settings"
+	"github.com/f97/n/pkg/uuid"
 )
 
 // ServiceUsingDB represents a service that need to use db

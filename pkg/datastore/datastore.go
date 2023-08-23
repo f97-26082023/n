@@ -3,7 +3,7 @@ package datastore
 import (
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/f97/n/pkg/errs"
 )
 
 // DataStore represents a data storage containing a series of database shards

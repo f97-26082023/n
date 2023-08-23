@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/f97/n/pkg/models"
+	"github.com/f97/n/pkg/utils"
 )
 
 // EzBookKeepingCSVFileExporter defines the structure of csv file exporter

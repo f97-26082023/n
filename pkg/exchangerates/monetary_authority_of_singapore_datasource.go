@@ -6,12 +6,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/log"
+	"github.com/f97/n/pkg/models"
+	"github.com/f97/n/pkg/utils"
+	"github.com/f97/n/pkg/validators"
 )
 
 const monetaryAuthorityOfSingaporeExchangeRateUrl = "https://eservices.mas.gov.sg/api/action/datastore/search.json?resource_id=95932927-c8bc-4e7a-b484-68a66a24edfe&sort=end_of_day+desc&limit=1"

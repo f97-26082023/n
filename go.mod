@@ -1,4 +1,4 @@
-module github.com/mayswind/ezbookkeeping
+module github.com/f97/n
 
 go 1.20
 

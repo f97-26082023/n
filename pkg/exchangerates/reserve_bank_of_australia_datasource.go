@@ -4,12 +4,12 @@ import (
 	"encoding/xml"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/log"
+	"github.com/f97/n/pkg/models"
+	"github.com/f97/n/pkg/utils"
+	"github.com/f97/n/pkg/validators"
 )
 
 const reserveBankOfAustraliaExchangeRateUrl = "https://www.rba.gov.au/rss/rss-cb-exchange-rates.xml"

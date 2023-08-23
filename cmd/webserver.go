@@ -13,15 +13,15 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/urfave/cli/v2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/api"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/middlewares"
-	"github.com/mayswind/ezbookkeeping/pkg/requestid"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/f97/n/pkg/api"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/log"
+	"github.com/f97/n/pkg/middlewares"
+	"github.com/f97/n/pkg/requestid"
+	"github.com/f97/n/pkg/settings"
+	"github.com/f97/n/pkg/utils"
+	"github.com/f97/n/pkg/validators"
 )
 
 // WebServer represents the server command

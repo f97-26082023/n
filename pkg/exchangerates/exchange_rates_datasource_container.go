@@ -1,8 +1,8 @@
 package exchangerates
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/settings"
 )
 
 // ExchangeRatesDataSourceContainer contains the current exchange rates data source

@@ -5,10 +5,10 @@ import (
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/f97/n/pkg/datastore"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/models"
+	"github.com/f97/n/pkg/uuid"
 )
 
 // TransactionCategoryService represents transaction category service

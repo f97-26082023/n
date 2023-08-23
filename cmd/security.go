@@ -5,7 +5,7 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/f97/n/pkg/utils"
 )
 
 // SecurityUtils represents the security command

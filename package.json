@@ -4,12 +4,12 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mayswind/ezbookkeeping.git"
+    "url": "git+https://github.com/f97/n.git"
   },
   "author": "MaysWind <i@mayswind.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mayswind/ezbookkeeping/issues"
+    "url": "https://github.com/f97/n/issues"
   },
   "scripts": {
     "serve": "cross-env NODE_ENV=development vite",

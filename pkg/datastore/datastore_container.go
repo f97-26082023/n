@@ -12,8 +12,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/settings"
 )
 
 // DataStoreContainer contains all data storages

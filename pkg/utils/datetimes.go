@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/f97/n/pkg/errs"
 )
 
 const (

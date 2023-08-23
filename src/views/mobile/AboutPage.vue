@@ -5,7 +5,7 @@
         <f7-list strong inset dividers class="margin-top">
             <f7-list-item :title="$t('Version')" :after="version"></f7-list-item>
             <f7-list-item :title="$t('Build Time')" :after="buildTime" v-if="buildTime"></f7-list-item>
-            <f7-list-item external :title="$t('Official Website')" link="https://github.com/mayswind/ezbookkeeping" target="_blank"></f7-list-item>
+            <f7-list-item external :title="$t('Official Website')" link="https://github.com/f97/n" target="_blank"></f7-list-item>
             <f7-list-item :title="$t('License')" link="#" popup-open=".license-popup"></f7-list-item>
         </f7-list>
 

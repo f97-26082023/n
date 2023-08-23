@@ -3,9 +3,9 @@ package middlewares
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/log"
+	"github.com/f97/n/pkg/utils"
 )
 
 // RequestLog logs the http request log

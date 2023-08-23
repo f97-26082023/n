@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/settings"
 )
 
 const openStreetMapTileImageUrlFormat = "https://tile.openstreetmap.org/%s/%s/%s"                       // https://tile.openstreetmap.org/{z}/{x}/{y}.png

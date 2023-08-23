@@ -8,9 +8,9 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/mayswind/ezbookkeeping/cmd"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/f97/n/cmd"
+	"github.com/f97/n/pkg/settings"
+	"github.com/f97/n/pkg/utils"
 )
 
 var (

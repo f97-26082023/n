@@ -3,7 +3,7 @@ package converters
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/f97/n/pkg/models"
 )
 
 // DataConverter defines the structure of data exporter
