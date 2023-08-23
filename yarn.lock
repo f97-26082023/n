@@ -3700,7 +3700,7 @@ __metadata:
     vue-router: ^4.2.4
     vue3-perfect-scrollbar: ^1.6.1
     vuedraggable: ^4.1.0
-    vuetify: ^3.3.13
+    vuetify: ^3.3.14
   languageName: unknown
   linkType: soft
 
@@ -7359,9 +7359,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vuetify@npm:^3.3.13":
-  version: 3.3.13
-  resolution: "vuetify@npm:3.3.13"
+"vuetify@npm:^3.3.14":
+  version: 3.3.14
+  resolution: "vuetify@npm:3.3.14"
   peerDependencies:
     typescript: ">=4.7"
     vite-plugin-vuetify: ^1.0.0-alpha.12
@@ -7377,7 +7377,7 @@ __metadata:
       optional: true
     webpack-plugin-vuetify:
       optional: true
-  checksum: 1800ea695205a021a10a0def08e2bb0f3191071083743e9b273c76c50044fb798350f638053e87f4325dc17ca4edbceb8af8b8c97eb2a914ae399fc3f91213fe
+  checksum: d7e26d537620a76b3908ba3a3d93085fe75760503e9d107ac5be704c81f104216f76f76a34eeec7527891a16da51e22a0512390f055a70ec9cb0e4d04c3b3d92
   languageName: node
   linkType: hard
 
