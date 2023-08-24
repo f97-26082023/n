@@ -7,17 +7,19 @@
                 <span class="numpad-value" :class="currentDisplayNumClass">{{ currentDisplay }}</span>
             </div>
             <div class="numpad-buttons">
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(1)">
-                    <span class="numpad-button-text numpad-button-text-normal">1</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(7)">
+                    <span class="numpad-button-text numpad-button-text-normal">7</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(2)">
-                    <span class="numpad-button-text numpad-button-text-normal">2</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(8)">
+                    <span class="numpad-button-text numpad-button-text-normal">8</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(3)">
-                    <span class="numpad-button-text numpad-button-text-normal">3</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(9)">
+                    <span class="numpad-button-text numpad-button-text-normal">9</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-function no-right-border" @click="setSymbol('×')">
-                    <span class="numpad-button-text numpad-button-text-normal">&times;</span>
+                <f7-button class="numpad-button numpad-button-function no-right-border" @click="backspace">
+                    <span class="numpad-button-text numpad-button-text-normal">
+                        <f7-icon f7="delete_left"></f7-icon>
+                    </span>
                 </f7-button>
                 <f7-button class="numpad-button numpad-button-num" @click="inputNum(4)">
                     <span class="numpad-button-text numpad-button-text-normal">4</span>
@@ -28,31 +30,29 @@
                 <f7-button class="numpad-button numpad-button-num" @click="inputNum(6)">
                     <span class="numpad-button-text numpad-button-text-normal">6</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-function no-right-border" @click="setSymbol('−')">
-                    <span class="numpad-button-text numpad-button-text-normal">&minus;</span>
+                <f7-button class="numpad-button numpad-button-function no-right-border" @click="toPositiveOrNegative">
+                    <span class="numpad-button-text numpad-button-text-normal">&plus;/&minus;</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(7)">
-                    <span class="numpad-button-text numpad-button-text-normal">7</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(1)">
+                    <span class="numpad-button-text numpad-button-text-normal">1</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(8)">
-                    <span class="numpad-button-text numpad-button-text-normal">8</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(2)">
+                    <span class="numpad-button-text numpad-button-text-normal">2</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputNum(9)">
-                    <span class="numpad-button-text numpad-button-text-normal">9</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputNum(3)">
+                    <span class="numpad-button-text numpad-button-text-normal">3</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-function no-right-border" @click="setSymbol('+')">
-                    <span class="numpad-button-text numpad-button-text-normal">&plus;</span>
+                <f7-button class="numpad-button numpad-button-function no-right-border" @click="clear">
+                    <span class="numpad-button-text numpad-button-text-normal">C</span>
                 </f7-button>
                 <f7-button class="numpad-button numpad-button-num" @click="inputNum(0)">
                     <span class="numpad-button-text numpad-button-text-normal">0</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="inputThousand()">
-                    <span class="numpad-button-text numpad-button-text-normal">000</span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputHundred">
+                    <span class="numpad-button-text numpad-button-text-normal">00</span>
                 </f7-button>
-                <f7-button class="numpad-button numpad-button-num" @click="backspace" @taphold="clear()">
-                <span class="numpad-button-text numpad-button-text-normal">
-                    <f7-icon f7="delete_left"></f7-icon>
-                </span>
+                <f7-button class="numpad-button numpad-button-num" @click="inputThousand">
+                    <span class="numpad-button-text numpad-button-text-normal">000</span>
                 </f7-button>
                 <f7-button class="numpad-button numpad-button-confirm no-right-border no-bottom-border" fill @click="confirm()">
                     <span :class="{ 'numpad-button-text': true, 'numpad-button-text-confirm': !currentSymbol }">{{ confirmText }}</span>
@@ -206,6 +206,16 @@ export default {
         inputThousand() {
             this.currentValue = this.currentValue + '000';
         },
+        inputHundred() {
+            this.currentValue = this.currentValue + '00';
+        },          
+        toPositiveOrNegative() {
+            if (this.currentValue[0] === '-') {
+                this.currentValue = this.currentValue.substring(1); 
+            } else {
+                this.currentValue = '-' + this.currentValue;
+            }
+        },
         setSymbol(symbol) {
             if (this.currentValue) {
                 if (this.currentSymbol) {
@@ -239,6 +249,24 @@ export default {
             this.currentValue = '';
             this.previousValue = '';
             this.currentSymbol = '';
+        },
+        inputDot() {
+            if (this.currentValue.indexOf('.') >= 0) {
+                return;
+            }
+
+            if (!this.previousValue && this.currentSymbol === '−') {
+                this.currentValue = '-' + this.currentValue;
+                this.currentSymbol = '';
+            }
+
+            if (this.currentValue.length < 1) {
+                this.currentValue = '0';
+            } else if (this.currentValue === '-') {
+                this.currentValue = '-0';
+            }
+
+            this.currentValue = this.currentValue + '.';
         },
         confirm() {
             if (this.currentSymbol && this.currentValue.length >= 1) {
