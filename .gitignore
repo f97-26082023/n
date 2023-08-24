@@ -154,3 +154,7 @@ dist/
 !.yarn/sdks
 !.yarn/versions
 
+.air/
+.gitpod.yml
+data/
+log/

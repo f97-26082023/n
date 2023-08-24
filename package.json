@@ -12,9 +12,9 @@
     "url": "https://github.com/f97/n/issues"
   },
   "scripts": {
-    "serve": "cross-env NODE_ENV=development vite",
+    "dev": "cross-env NODE_ENV=development vite",
     "build": "cross-env NODE_ENV=production vite build",
-    "serve:dist": "vite preview",
+    "dev:dist": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
