@@ -15,6 +15,7 @@ const (
 	ACCOUNT_CATEGORY_DEBT        AccountCategory = 5
 	ACCOUNT_CATEGORY_RECEIVABLES AccountCategory = 6
 	ACCOUNT_CATEGORY_INVESTMENT  AccountCategory = 7
+	ACCOUNT_CATEGORY_SAVING  		 AccountCategory = 8
 )
 
 var assetAccountCategory = map[AccountCategory]bool{
@@ -25,6 +26,7 @@ var assetAccountCategory = map[AccountCategory]bool{
 	ACCOUNT_CATEGORY_DEBT:        false,
 	ACCOUNT_CATEGORY_RECEIVABLES: true,
 	ACCOUNT_CATEGORY_INVESTMENT:  true,
+	ACCOUNT_CATEGORY_SAVING:  		true,
 }
 
 var liabilityAccountCategory = map[AccountCategory]bool{
@@ -35,6 +37,7 @@ var liabilityAccountCategory = map[AccountCategory]bool{
 	ACCOUNT_CATEGORY_DEBT:        true,
 	ACCOUNT_CATEGORY_RECEIVABLES: false,
 	ACCOUNT_CATEGORY_INVESTMENT:  false,
+	ACCOUNT_CATEGORY_SAVING:  		false,
 }
 
 // AccountType represents account type
