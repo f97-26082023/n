@@ -1,6 +1,6 @@
 const baseImagePath = 'img';
-const ezBookkeepingLogoPath = baseImagePath + '/ezbookkeeping-192.png';
+const goFireLogoPath = baseImagePath + '/gofire-192.png';
 
 export default {
-    ezBookkeepingLogoPath: ezBookkeepingLogoPath
+    goFireLogoPath: goFireLogoPath
 }

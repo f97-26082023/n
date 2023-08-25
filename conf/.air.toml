@@ -2,8 +2,8 @@ root = "."
 tmp_dir = ".air"
 
 [build]
-bin = "./.air/ezbookkeeping server run conf/ezbookkeeping.ini"
-cmd = "go build -o ./.air/ezbookkeeping ./ezbookkeeping.go"
+bin = "./.air/gofire server run conf/gofire.ini"
+cmd = "go build -o ./.air/gofire ./gofire.go"
 delay = 1000
 exclude_dir = [".air", "data", "dist"]
 exclude_file = []

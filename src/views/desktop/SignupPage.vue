@@ -2,7 +2,7 @@
     <div class="layout-wrapper">
         <router-link to="/">
             <div class="auth-logo d-flex align-start gap-x-3">
-                <img alt="logo" class="login-page-logo" :src="ezBookkeepingLogoPath" />
+                <img alt="logo" class="login-page-logo" :src="goFireLogoPath" />
                 <h1 class="font-weight-medium leading-normal text-2xl">{{ $t('global.app.title') }}</h1>
             </div>
         </router-link>
@@ -288,8 +288,8 @@ export default {
     },
     computed: {
         ...mapStores(useRootStore, useSettingsStore, useTransactionCategoriesStore, useExchangeRatesStore),
-        ezBookkeepingLogoPath() {
-            return assetConstants.ezBookkeepingLogoPath;
+        goFireLogoPath() {
+            return assetConstants.goFireLogoPath;
         },
         allLanguages() {
             return this.$locale.getAllLanguageInfoArray(false);

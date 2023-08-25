@@ -18,7 +18,7 @@ const pageCountForDataExport = 1000
 
 // UserDataCli represents user data cli
 type UserDataCli struct {
-	ezBookKeepingCsvExporter *converters.EzBookKeepingCSVFileExporter
+	goFireCsvExporter *converters.GoFireCSVFileExporter
 	accounts                 *services.AccountService
 	transactions             *services.TransactionService
 	categories               *services.TransactionCategoryService
@@ -31,7 +31,7 @@ type UserDataCli struct {
 // Initialize an user data cli singleton instance
 var (
 	UserData = &UserDataCli{
-		ezBookKeepingCsvExporter: &converters.EzBookKeepingCSVFileExporter{},
+		goFireCsvExporter: &converters.GoFireCSVFileExporter{},
 		accounts:                 services.Accounts,
 		transactions:             services.Transactions,
 		categories:               services.TransactionCategories,
@@ -451,7 +451,7 @@ func (l *UserDataCli) ExportTransaction(c *cli.Context, username string) ([]byte
 		return nil, err
 	}
 
-	result, err := l.ezBookKeepingCsvExporter.ToExportedContent(uid, time.Local, allTransactions, accountMap, categoryMap, tagMap, tagIndexs)
+	result, err := l.goFireCsvExporter.ToExportedContent(uid, time.Local, allTransactions, accountMap, categoryMap, tagMap, tagIndexs)
 
 	if err != nil {
 		log.BootErrorf("[user_data.ExportTransaction] failed to get csv format exported data for \"%s\", because %s", username, err.Error())

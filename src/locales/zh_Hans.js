@@ -76,8 +76,8 @@ export default {
         }
     },
     'dataExport': {
-        'defaultExportFilename': 'ezBookkeeping_导出数据',
-        'exportFilename': 'ezBookkeeping_{nickname}_导出数据'
+        'defaultExportFilename': 'goFire_导出数据',
+        'exportFilename': 'goFire_{nickname}_导出数据'
     },
     'datetime': {
         'AM': {

@@ -154,8 +154,8 @@ build_backend() {
 
     echo "Building backend binary file ($RELEASE_TYPE)..."
 
-    CGO_ENABLED=1 go build -a -v -trimpath -ldflags "-w -s -linkmode external -extldflags '-static' $backend_build_extra_arguments" -o ezbookkeeping ezbookkeeping.go
-    chmod +x ezbookkeeping
+    CGO_ENABLED=1 go build -a -v -trimpath -ldflags "-w -s -linkmode external -extldflags '-static' $backend_build_extra_arguments" -o gofire gofire.go
+    chmod +x gofire
 }
 
 build_frontend() {
@@ -188,7 +188,7 @@ build_package() {
         package_file_name="$package_file_name-$(date '+%Y%m%d')"
     fi
 
-    package_file_name="ezbookkeeping-$package_file_name-$(arch).tar.gz"
+    package_file_name="gofire-$package_file_name-$(arch).tar.gz"
 
     if [ -n "$PACKAGE_FILENAME" ]; then
         package_file_name="$PACKAGE_FILENAME"
@@ -203,7 +203,7 @@ build_package() {
     mkdir package
     mkdir package/data
     mkdir package/log
-    cp ezbookkeeping package/
+    cp gofire package/
     cp -R dist package/public
     cp -R conf package/conf
     cp LICENSE package/
@@ -220,7 +220,7 @@ build_docker() {
         docker_tag="SNAPSHOT-$(date '+%Y%m%d')";
     fi
 
-    docker_tag="ezbookkeeping:$docker_tag"
+    docker_tag="gofire:$docker_tag"
 
     if [ -n "$DOCKER_TAG" ]; then
         docker_tag="$DOCKER_TAG"

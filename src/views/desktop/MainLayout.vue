@@ -5,7 +5,7 @@
             <div class="nav-header">
                 <router-link to="/" class="app-logo d-flex align-center gap-x-3 app-title-wrapper">
                     <div class="d-flex">
-                        <img alt="logo" class="main-logo" :src="ezBookkeepingLogoPath" />
+                        <img alt="logo" class="main-logo" :src="goFireLogoPath" />
                     </div>
                     <h1 class="font-weight-medium text-xl">{{ $t('global.app.title') }}</h1>
                 </router-link>
@@ -97,7 +97,7 @@
                         </v-btn>
                         <div class="app-logo d-flex align-center gap-x-3 app-title-wrapper" v-if="mdAndDown">
                             <div class="d-flex">
-                                <img alt="logo" class="main-logo" :src="ezBookkeepingLogoPath" />
+                                <img alt="logo" class="main-logo" :src="goFireLogoPath" />
                             </div>
                             <h1 class="font-weight-medium text-xl">{{ $t('global.app.title') }}</h1>
                         </div>
@@ -242,8 +242,8 @@ export default {
     },
     computed: {
         ...mapStores(useRootStore, useSettingsStore, useUserStore),
-        ezBookkeepingLogoPath() {
-            return assetConstants.ezBookkeepingLogoPath;
+        goFireLogoPath() {
+            return assetConstants.goFireLogoPath;
         },
         mdAndDown() {
             return this.display.mdAndDown.value;

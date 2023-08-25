@@ -19,7 +19,7 @@ const pageCountForDataExport = 1000
 
 // DataManagementsApi represents data management api
 type DataManagementsApi struct {
-	exporter     *converters.EzBookKeepingCSVFileExporter
+	exporter     *converters.GoFireCSVFileExporter
 	tokens       *services.TokenService
 	users        *services.UserService
 	accounts     *services.AccountService
@@ -31,7 +31,7 @@ type DataManagementsApi struct {
 // Initialize a data management api singleton instance
 var (
 	DataManagements = &DataManagementsApi{
-		exporter:     &converters.EzBookKeepingCSVFileExporter{},
+		exporter:     &converters.GoFireCSVFileExporter{},
 		tokens:       services.Tokens,
 		users:        services.Users,
 		accounts:     services.Accounts,

@@ -22,11 +22,11 @@ export default defineConfig(async () => {
         publicDir: PUBLIC_DIR,
         base: './',
         define: {
-            __EZBOOKKEEPING_VERSION__: JSON.stringify(packageFile.version),
-            __EZBOOKKEEPING_BUILD_UNIX_TIME__: JSON.stringify(buildUnixTime),
-            __EZBOOKKEEPING_BUILD_COMMIT_HASH__: JSON.stringify(git.short()),
-            __EZBOOKKEEPING_LICENSE__: JSON.stringify(licenseContent),
-            __EZBOOKKEEPING_THIRD_PARTY_LICENSES__: JSON.stringify(thirdPartyLicenseFile)
+            __GOFIRE_VERSION__: JSON.stringify(packageFile.version),
+            __GOFIRE_BUILD_UNIX_TIME__: JSON.stringify(buildUnixTime),
+            __GOFIRE_BUILD_COMMIT_HASH__: JSON.stringify(git.short()),
+            __GOFIRE_LICENSE__: JSON.stringify(licenseContent),
+            __GOFIRE_THIRD_PARTY_LICENSES__: JSON.stringify(thirdPartyLicenseFile)
         },
         plugins: [
             vue({
@@ -59,12 +59,12 @@ export default defineConfig(async () => {
                     prefer_related_applications: false,
                     icons: [
                         {
-                            src: 'img/ezbookkeeping-192.png',
+                            src: 'img/gofire-192.png',
                             sizes: '192x192',
                             type: 'image/png'
                         },
                         {
-                            src: 'img/ezbookkeeping-512.png',
+                            src: 'img/gofire-512.png',
                             sizes: '512x512',
                             type: 'image/png'
                         }

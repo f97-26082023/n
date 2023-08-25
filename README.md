@@ -49,24 +49,24 @@ Latest Daily Build:
 ### Install from binary
 Latest release: [https://github.com/f97/n/releases](https://github.com/f97/n/releases)
 
-    $ ./ezbookkeeping server run
+    $ ./gofire server run
 
 n.f97.xyz will listen at port 8080 as default. Then you can visit http://{YOUR_HOST_ADDRESS}:8080/ .
 
 ### Build from source
 Make sure you have [Golang](https://golang.org/), [GCC](http://gcc.gnu.org/), [Node.js](https://nodejs.org/) and [NPM](https://www.npmjs.com/) installed. Then download the source code, and follow these steps:
 
-    $ ./build.sh package -o ezbookkeeping.tar.gz
+    $ ./build.sh package -o gofire.tar.gz
 
-All the files will be packaged in `ezbookkeeping.tar.gz`.
+All the files will be packaged in `gofire.tar.gz`.
 
 You can also build docker image, make sure you have [docker](https://www.docker.com/) installed, then follow these steps:
 
     $ ./build.sh docker
 
 ## Documents
-1. [English](http://ezbookkeeping.mayswind.net)
-1. [简体中文 (Simplified Chinese)](http://ezbookkeeping.mayswind.net/zh_Hans)
+1. [English](http://gofire.mayswind.net)
+1. [简体中文 (Simplified Chinese)](http://gofire.mayswind.net/zh_Hans)
 
 ## License
 [MIT](https://github.com/f97/n/blob/master/LICENSE)

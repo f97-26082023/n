@@ -10,7 +10,7 @@ import (
 
 func TestClone(t *testing.T) {
 	expectedObject := &settings.Config{
-		AppName: "ezbookkeeping",
+		AppName: "gofire",
 		Mode:    settings.MODE_PRODUCTION,
 		DatabaseConfig: &settings.DatabaseConfig{
 			DatabaseType:          settings.MySqlDbType,

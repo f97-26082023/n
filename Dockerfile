@@ -21,18 +21,18 @@ RUN ./build.sh frontend
 # Package docker image
 FROM alpine:3.18.3
 LABEL maintainer="MaysWind <i@mayswind.net>"
-RUN addgroup -S -g 1000 ezbookkeeping && adduser -S -G ezbookkeeping -u 1000 ezbookkeeping
+RUN addgroup -S -g 1000 gofire && adduser -S -G gofire -u 1000 gofire
 RUN apk --no-cache add tzdata
 COPY docker/docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
-RUN mkdir -p /ezbookkeeping && chown 1000:1000 /ezbookkeeping \
-  && mkdir -p /ezbookkeeping/data && chown 1000:1000 /ezbookkeeping/data \
-  && mkdir -p /ezbookkeeping/log && chown 1000:1000 /ezbookkeeping/log
-WORKDIR /ezbookkeeping
-COPY --from=be-builder --chown=1000:1000 /go/src/github.com/f97/n/ezbookkeeping /ezbookkeeping/ezbookkeeping
-COPY --from=fe-builder --chown=1000:1000 /go/src/github.com/f97/n/dist /ezbookkeeping/public
-COPY --chown=1000:1000 conf /ezbookkeeping/conf
-COPY --chown=1000:1000 LICENSE /ezbookkeeping/LICENSE
+RUN mkdir -p /gofire && chown 1000:1000 /gofire \
+  && mkdir -p /gofire/data && chown 1000:1000 /gofire/data \
+  && mkdir -p /gofire/log && chown 1000:1000 /gofire/log
+WORKDIR /gofire
+COPY --from=be-builder --chown=1000:1000 /go/src/github.com/f97/n/gofire /gofire/gofire
+COPY --from=fe-builder --chown=1000:1000 /go/src/github.com/f97/n/dist /gofire/public
+COPY --chown=1000:1000 conf /gofire/conf
+COPY --chown=1000:1000 LICENSE /gofire/LICENSE
 USER 1000:1000
 EXPOSE 8080
 ENTRYPOINT ["/docker-entrypoint.sh"]

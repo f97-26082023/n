@@ -9,8 +9,8 @@ import (
 	"github.com/f97/n/pkg/utils"
 )
 
-// EzBookKeepingCSVFileExporter defines the structure of csv file exporter
-type EzBookKeepingCSVFileExporter struct {
+// GoFireCSVFileExporter defines the structure of csv file exporter
+type GoFireCSVFileExporter struct {
 	DataConverter
 }
 
@@ -18,7 +18,7 @@ const csvHeaderLine = "Time,Timezone,Type,Category,Sub Category,Account,Account 
 const csvDataLineFormat = "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n"
 
 // ToExportedContent returns the exported csv data
-func (e *EzBookKeepingCSVFileExporter) ToExportedContent(uid int64, timezone *time.Location, transactions []*models.Transaction, accountMap map[int64]*models.Account, categoryMap map[int64]*models.TransactionCategory, tagMap map[int64]*models.TransactionTag, allTagIndexs map[int64][]int64) ([]byte, error) {
+func (e *GoFireCSVFileExporter) ToExportedContent(uid int64, timezone *time.Location, transactions []*models.Transaction, accountMap map[int64]*models.Account, categoryMap map[int64]*models.TransactionCategory, tagMap map[int64]*models.TransactionTag, allTagIndexs map[int64][]int64) ([]byte, error) {
 	var ret strings.Builder
 
 	ret.Grow(len(transactions) * 100)
@@ -59,7 +59,7 @@ func (e *EzBookKeepingCSVFileExporter) ToExportedContent(uid int64, timezone *ti
 	return []byte(ret.String()), nil
 }
 
-func (e *EzBookKeepingCSVFileExporter) getTransactionTypeName(transactionDbType models.TransactionDbType) string {
+func (e *GoFireCSVFileExporter) getTransactionTypeName(transactionDbType models.TransactionDbType) string {
 	if transactionDbType == models.TRANSACTION_DB_TYPE_MODIFY_BALANCE {
 		return "Balance Modification"
 	} else if transactionDbType == models.TRANSACTION_DB_TYPE_INCOME {
@@ -73,7 +73,7 @@ func (e *EzBookKeepingCSVFileExporter) getTransactionTypeName(transactionDbType 
 	}
 }
 
-func (e *EzBookKeepingCSVFileExporter) getTransactionCategoryName(categoryId int64, categoryMap map[int64]*models.TransactionCategory) string {
+func (e *GoFireCSVFileExporter) getTransactionCategoryName(categoryId int64, categoryMap map[int64]*models.TransactionCategory) string {
 	category, exists := categoryMap[categoryId]
 
 	if !exists {
@@ -93,7 +93,7 @@ func (e *EzBookKeepingCSVFileExporter) getTransactionCategoryName(categoryId int
 	return parentCategory.Name
 }
 
-func (e *EzBookKeepingCSVFileExporter) getTransactionSubCategoryName(categoryId int64, categoryMap map[int64]*models.TransactionCategory) string {
+func (e *GoFireCSVFileExporter) getTransactionSubCategoryName(categoryId int64, categoryMap map[int64]*models.TransactionCategory) string {
 	category, exists := categoryMap[categoryId]
 
 	if exists {
@@ -103,7 +103,7 @@ func (e *EzBookKeepingCSVFileExporter) getTransactionSubCategoryName(categoryId 
 	}
 }
 
-func (e *EzBookKeepingCSVFileExporter) getAccountName(accountId int64, accountMap map[int64]*models.Account) string {
+func (e *GoFireCSVFileExporter) getAccountName(accountId int64, accountMap map[int64]*models.Account) string {
 	account, exists := accountMap[accountId]
 
 	if exists {
@@ -113,7 +113,7 @@ func (e *EzBookKeepingCSVFileExporter) getAccountName(accountId int64, accountMa
 	}
 }
 
-func (e *EzBookKeepingCSVFileExporter) getAccountCurrency(accountId int64, accountMap map[int64]*models.Account) string {
+func (e *GoFireCSVFileExporter) getAccountCurrency(accountId int64, accountMap map[int64]*models.Account) string {
 	account, exists := accountMap[accountId]
 
 	if exists {
@@ -123,7 +123,7 @@ func (e *EzBookKeepingCSVFileExporter) getAccountCurrency(accountId int64, accou
 	}
 }
 
-func (e *EzBookKeepingCSVFileExporter) getDisplayAmount(amount int64) string {
+func (e *GoFireCSVFileExporter) getDisplayAmount(amount int64) string {
 	displayAmount := utils.Int64ToString(amount)
 	integer := utils.SubString(displayAmount, 0, len(displayAmount)-2)
 	decimals := utils.SubString(displayAmount, -2, 2)
@@ -143,7 +143,7 @@ func (e *EzBookKeepingCSVFileExporter) getDisplayAmount(amount int64) string {
 	return integer + "." + decimals
 }
 
-func (e *EzBookKeepingCSVFileExporter) getTags(transactionId int64, allTagIndexs map[int64][]int64, tagMap map[int64]*models.TransactionTag) string {
+func (e *GoFireCSVFileExporter) getTags(transactionId int64, allTagIndexs map[int64][]int64, tagMap map[int64]*models.TransactionTag) string {
 	tagIndexs, exists := allTagIndexs[transactionId]
 
 	if !exists {
@@ -170,7 +170,7 @@ func (e *EzBookKeepingCSVFileExporter) getTags(transactionId int64, allTagIndexs
 	return ret.String()
 }
 
-func (e *EzBookKeepingCSVFileExporter) getComment(comment string) string {
+func (e *GoFireCSVFileExporter) getComment(comment string) string {
 	comment = strings.Replace(comment, ",", " ", -1)
 	comment = strings.Replace(comment, "\r\n", " ", -1)
 	comment = strings.Replace(comment, "\n", " ", -1)

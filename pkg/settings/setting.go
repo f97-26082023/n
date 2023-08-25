@@ -16,7 +16,7 @@ import (
 const (
 	ebkWorkDirEnvName     = "EBK_WORK_DIR"
 	ebkEnvNamePrefix      = "EBK"
-	defaultConfigPath     = "/conf/ezbookkeeping.ini"
+	defaultConfigPath     = "/conf/gofire.ini"
 	defaultStaticRootPath = "public"
 )
 
@@ -105,7 +105,7 @@ const (
 	defaultDomain   string = "localhost"
 
 	defaultDatabaseHost            string = "127.0.0.1:3306"
-	defaultDatabaseName            string = "ezbookkeeping"
+	defaultDatabaseName            string = "gofire"
 	defaultDatabaseMaxIdleConn     uint16 = 2
 	defaultDatabaseMaxOpenConn     uint16 = 0
 	defaultDatabaseConnMaxLifetime uint32 = 14400
@@ -113,7 +113,7 @@ const (
 	defaultLogMode  string = "console"
 	defaultLoglevel Level  = LOGLEVEL_INFO
 
-	defaultSecretKey                 string = "ezbookkeeping"
+	defaultSecretKey                 string = "gofire"
 	defaultTokenExpiredTime          uint32 = 604800 // 7 days
 	defaultTemporaryTokenExpiredTime uint32 = 300    // 5 minutes
 

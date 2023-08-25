@@ -1,8 +1,8 @@
 export default {
     getLicense: () => {
-        return __EZBOOKKEEPING_LICENSE__; // eslint-disable-line
+        return __GOFIRE_LICENSE__; // eslint-disable-line
     },
     getThirdPartyLicenses: () => {
-        return __EZBOOKKEEPING_THIRD_PARTY_LICENSES__ || []; // eslint-disable-line
+        return __GOFIRE_THIRD_PARTY_LICENSES__ || []; // eslint-disable-line
     }
 };
