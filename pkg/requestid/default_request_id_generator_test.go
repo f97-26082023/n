@@ -31,7 +31,7 @@ func TestNewDefaultRequestIdGenerator_UnixSocket(t *testing.T) {
 	actualServerUniqId := requestIdInfo.ServerUniqId
 	assert.Equal(t, expectedServerUniqId, actualServerUniqId)
 
-	expectedInstanceUniqId := uint16(0x2cc) // crc32("/var/lib/gofire/gofire.sock" + "_" + "secretkey") & 0xFFFF
+	expectedInstanceUniqId := uint16(0xa147) // crc32("/var/lib/gofire/gofire.sock" + "_" + "secretkey") & 0xFFFF
 	actualInstanceUniqId := requestIdInfo.InstanceUniqId
 	assert.Equal(t, expectedInstanceUniqId, actualInstanceUniqId)
 }
