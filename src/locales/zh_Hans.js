@@ -863,6 +863,7 @@ export default {
     'Virtual Account': '虚拟账户',
     'Debt Account': '负债账户',
     'Receivables': '应收款项',
+    'Savings Account': 'Savings Account',
     'Investment Account': '投资账户',
     'Balance': '余额',
     'Unable to get account list': '无法获取账户列表',

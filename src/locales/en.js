@@ -863,6 +863,7 @@ export default {
     'Virtual Account': 'Virtual Account',
     'Debt Account': 'Debt Account',
     'Receivables': 'Receivables',
+    'Savings Account': 'Savings Account',
     'Investment Account': 'Investment Account',
     'Balance': 'Balance',
     'Unable to get account list': 'Unable to get account list',

@@ -33,7 +33,12 @@ const allAccountCategories = [
         id: 7,
         name: 'Investment Account',
         defaultAccountIconId: '800'
-    }
+    },
+    {
+        id: 8,
+        name: 'Savings Account',
+        defaultAccountIconId: '30'
+    },
 ];
 const allAccountTypes = {
     SingleAccount: 1,
