@@ -5,7 +5,7 @@ const allChartTypes = {
     Bar: 1
 };
 
-const defaultChartType = allChartTypes.Pie;
+const defaultChartType = allChartTypes.Bar;
 
 const allChartDataTypes = {
     ExpenseByAccount: {
@@ -42,7 +42,7 @@ const allChartDataTypes = {
     }
 };
 
-const defaultChartDataType = allChartDataTypes.ExpenseByPrimaryCategory.type;
+const defaultChartDataType = allChartDataTypes.ExpenseBySecondaryCategory.type;
 
 const allSortingTypes = {
     Amount: {
