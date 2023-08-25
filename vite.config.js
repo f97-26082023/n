@@ -52,7 +52,7 @@ export default defineConfig(async () => {
                     description: 'A lightweight personal bookkeeping app hosted by yourself.',
                     theme_color: '#C67E48',
                     background_color: '#F6F7F8',
-                    start_url: './',
+                    start_url: './account/list',
                     scope: './',
                     display: 'standalone',
                     related_applications: [],
