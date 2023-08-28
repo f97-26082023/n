@@ -35,7 +35,7 @@ export default {
             isProduction: isProduction(),
             devCookiePath: isProduction() ? '' : '/dev/cookies',
             f7params: {
-                name: 'n.f97.xyz',
+                name: 'gofire',
                 theme: 'ios',
                 colors: {
                     primary: '#c67e48'

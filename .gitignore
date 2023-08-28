@@ -157,5 +157,4 @@ dist/
 .air/
 .gitpod.yml
 data/
-log/
 gofire

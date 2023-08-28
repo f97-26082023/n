@@ -47,8 +47,8 @@ export default defineConfig(async () => {
                 strategies: 'generateSW',
                 injectRegister: 'null',
                 manifest: {
-                    name: 'n.f97.xyz',
-                    short_name: 'n.f97.xyz',
+                    name: 'gofire',
+                    short_name: 'gofire',
                     description: 'A lightweight personal bookkeeping app hosted by yourself.',
                     theme_color: '#C67E48',
                     background_color: '#F6F7F8',

@@ -8,7 +8,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // LogFormatter represents a log formatter

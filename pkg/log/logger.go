@@ -8,8 +8,8 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/settings"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/settings"
 )
 
 const logFieldRequestId = "REQUEST_ID"

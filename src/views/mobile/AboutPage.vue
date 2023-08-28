@@ -24,7 +24,7 @@
                     </p>
                     <hr/>
                     <p>
-                        <span>n.f97.xyz also contains additional third party software and illustration.</span><br/>
+                        <span>gofire also contains additional third party software and illustration.</span><br/>
                         <span>All the third party software/illustration included or linked is redistributed under the terms and conditions of their original licenses.</span>
                     </p>
                     <p></p>

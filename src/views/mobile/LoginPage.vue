@@ -58,7 +58,7 @@
             <f7-block-footer>
                 <div class="login-page-powered-by">
                     <span>Powered by</span>
-                    <f7-link external href="https://github.com/f97/gofire" target="_blank">n.f97.xyz</f7-link>
+                    <f7-link external href="https://github.com/f97/gofire" target="_blank">gofire</f7-link>
                     <span>{{ version }}</span>
                 </div>
             </f7-block-footer>
@@ -67,7 +67,7 @@
         <f7-toolbar class="login-page-fixed-bottom" tabbar bottom :outline="false">
             <div class="login-page-powered-by">
                 <span>Powered by</span>
-                <f7-link external href="https://github.com/f97/gofire" target="_blank">n.f97.xyz</f7-link>
+                <f7-link external href="https://github.com/f97/gofire" target="_blank">gofire</f7-link>
                 <span>{{ version }}</span>
             </div>
         </f7-toolbar>

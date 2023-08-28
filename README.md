@@ -1,4 +1,4 @@
-# n.f97.xyz
+# gofire
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/f97/gofire/blob/master/LICENSE)
 [![Latest Build](https://img.shields.io/github/actions/workflow/status/f97/gofire/docker-snapshot.yml?branch=main)](https://github.com/f97/gofire/actions)
 [![Go Report](https://goreportcard.com/badge/github.com/f97/gofire)](https://goreportcard.com/report/github.com/f97/gofire)
@@ -6,7 +6,7 @@
 [![Latest Release](https://img.shields.io/github/release/f97/gofire.svg?style=flat)](https://github.com/f97/gofire/releases)
 
 ## Introduction
-n.f97.xyz is a lightweight personal bookkeeping app hosted by yourself. It can be deployed on almost all platforms, including Windows, macOS and Linux on x86, amd64 and ARM architectures. You can even deploy it on an raspberry device. It also supports many different databases, including sqlite and mysql. With docker, you can just deploy it via one command without complicated configuration.
+gofire is a lightweight personal bookkeeping app hosted by yourself. It can be deployed on almost all platforms, including Windows, macOS and Linux on x86, amd64 and ARM architectures. You can even deploy it on an raspberry device. It also supports many different databases, including sqlite and mysql. With docker, you can just deploy it via one command without complicated configuration.
 
 ## Features
 1. Open source & Self-hosted
@@ -32,7 +32,7 @@ n.f97.xyz is a lightweight personal bookkeeping app hosted by yourself. It can b
 
 ## Screenshots
 ### Mobile Device
-[![n.f97.xyz](https://raw.githubusercontent.com/wiki/f97/gofire/img/en.png)](https://raw.githubusercontent.com/wiki/f97/gofire/img/en.png)
+[![gofire](https://raw.githubusercontent.com/wiki/f97/gofire/img/en.png)](https://raw.githubusercontent.com/wiki/f97/gofire/img/en.png)
 
 ## Installation
 ### Ship with docker
@@ -51,7 +51,7 @@ Latest release: [https://github.com/f97/gofire/releases](https://github.com/f97/
 
     $ ./gofire server run
 
-n.f97.xyz will listen at port 8080 as default. Then you can visit http://{YOUR_HOST_ADDRESS}:8080/ .
+gofire will listen at port 8080 as default. Then you can visit http://{YOUR_HOST_ADDRESS}:8080/ .
 
 ### Build from source
 Make sure you have [Golang](https://golang.org/), [GCC](http://gcc.gnu.org/), [Node.js](https://nodejs.org/) and [NPM](https://www.npmjs.com/) installed. Then download the source code, and follow these steps:

@@ -27,7 +27,7 @@ check_dependency() {
 
 show_help() {
     cat <<-EOF
-n.f97.xyz build script
+gofire build script
 
 Usage:
     build.sh type [options]

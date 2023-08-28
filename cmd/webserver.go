@@ -27,11 +27,11 @@ import (
 // WebServer represents the server command
 var WebServer = &cli.Command{
 	Name:  "server",
-	Usage: "n.f97.xyz web server operation",
+	Usage: "gofire web server operation",
 	Subcommands: []*cli.Command{
 		{
 			Name:   "run",
-			Usage:  "Run n.f97.xyz web server",
+			Usage:  "Run gofire web server",
 			Action: startWebServer,
 		},
 	},

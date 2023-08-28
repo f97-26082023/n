@@ -98,7 +98,7 @@ const (
 )
 
 const (
-	defaultAppName string = "n.f97.xyz"
+	defaultAppName string = "gofire"
 
 	defaultHttpAddr string = "0.0.0.0"
 	defaultHttpPort uint16 = 8080

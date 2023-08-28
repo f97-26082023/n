@@ -16,7 +16,7 @@ import (
 // Utilities represents the utilities command
 var Utilities = &cli.Command{
 	Name:  "utility",
-	Usage: "n.f97.xyz utilities",
+	Usage: "gofire utilities",
 	Subcommands: []*cli.Command{
 		{
 			Name:   "parse-default-request-id",

@@ -1,7 +1,7 @@
 export default {
     'global': {
         'app': {
-            'title': 'n.f97.xyz',
+            'title': 'gofire',
         }
     },
     'default': {
@@ -784,8 +784,8 @@ export default {
     'Save Display Order': 'Save Display Order',
     'Change Language': 'Change Language',
     'Date is too early': 'Date is too early',
-    'Welcome to n.f97.xyz': 'Welcome to n.f97.xyz',
-    'Please log in with your n.f97.xyz account': 'Please log in with your n.f97.xyz account',
+    'Welcome to gofire': 'Welcome to gofire',
+    'Please log in with your gofire account': 'Please log in with your gofire account',
     'Unlock Application': 'Unlock Application',
     'Please input your PIN code or use WebAuthn to unlock application': 'Please input your PIN code or use WebAuthn to unlock application',
     'Please input your PIN code to unlock application': 'Please input your PIN code to unlock application',

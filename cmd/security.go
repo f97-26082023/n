@@ -11,7 +11,7 @@ import (
 // SecurityUtils represents the security command
 var SecurityUtils = &cli.Command{
 	Name:  "security",
-	Usage: "n.f97.xyz security utilities",
+	Usage: "gofire security utilities",
 	Subcommands: []*cli.Command{
 		{
 			Name:   "gen-secret-key",
