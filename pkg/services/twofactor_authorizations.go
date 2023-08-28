@@ -7,12 +7,12 @@ import (
 	"github.com/pquerna/otp/totp"
 	"xorm.io/xorm"
 
-	"github.com/f97/n/pkg/datastore"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/settings"
-	"github.com/f97/n/pkg/utils"
-	"github.com/f97/n/pkg/uuid"
+	"github.com/f97/gofire/pkg/datastore"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/settings"
+	"github.com/f97/gofire/pkg/utils"
+	"github.com/f97/gofire/pkg/uuid"
 )
 
 const (

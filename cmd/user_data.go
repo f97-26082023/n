@@ -2,14 +2,14 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/f97/n/pkg/models"
+	"github.com/f97/gofire/pkg/models"
 	"os"
 
 	"github.com/urfave/cli/v2"
 
-	clis "github.com/f97/n/pkg/cli"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/utils"
+	clis "github.com/f97/gofire/pkg/cli"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // UserData represents the data command

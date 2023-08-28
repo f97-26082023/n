@@ -11,10 +11,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/settings"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/settings"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // Length and mask of all information in request id

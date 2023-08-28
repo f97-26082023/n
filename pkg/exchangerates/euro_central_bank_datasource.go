@@ -4,12 +4,12 @@ import (
 	"encoding/xml"
 	"time"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/utils"
-	"github.com/f97/n/pkg/validators"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/utils"
+	"github.com/f97/gofire/pkg/validators"
 )
 
 const euroCentralBankExchangeRateUrl = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"

@@ -1,9 +1,9 @@
 package middlewares
 
 import (
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/requestid"
-	"github.com/f97/n/pkg/settings"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/requestid"
+	"github.com/f97/gofire/pkg/settings"
 )
 
 const requestIdHeader = "X-Request-ID"

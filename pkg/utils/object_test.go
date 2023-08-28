@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/f97/n/pkg/settings"
+	"github.com/f97/gofire/pkg/settings"
 )
 
 func TestClone(t *testing.T) {

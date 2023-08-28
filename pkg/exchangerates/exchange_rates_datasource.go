@@ -1,8 +1,8 @@
 package exchangerates
 
 import (
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/models"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/models"
 )
 
 // ExchangeRatesDataSource defines the structure of exchange rates data source

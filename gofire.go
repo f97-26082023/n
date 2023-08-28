@@ -8,9 +8,9 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/f97/n/cmd"
-	"github.com/f97/n/pkg/settings"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/cmd"
+	"github.com/f97/gofire/pkg/settings"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 var (

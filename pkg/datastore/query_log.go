@@ -3,8 +3,8 @@ package datastore
 import (
 	xorm "xorm.io/xorm/log"
 
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/settings"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/settings"
 )
 
 // XOrmLoggerAdapter represents the logger adapter for xorm

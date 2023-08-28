@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"net"
 
-	"github.com/f97/n/pkg/errs"
+	"github.com/f97/gofire/pkg/errs"
 )
 
 // GetLocalIPAddressesString returns all local ip address, every ip split by comma

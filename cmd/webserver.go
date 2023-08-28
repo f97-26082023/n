@@ -13,15 +13,15 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/urfave/cli/v2"
 
-	"github.com/f97/n/pkg/api"
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/middlewares"
-	"github.com/f97/n/pkg/requestid"
-	"github.com/f97/n/pkg/settings"
-	"github.com/f97/n/pkg/utils"
-	"github.com/f97/n/pkg/validators"
+	"github.com/f97/gofire/pkg/api"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/middlewares"
+	"github.com/f97/gofire/pkg/requestid"
+	"github.com/f97/gofire/pkg/settings"
+	"github.com/f97/gofire/pkg/utils"
+	"github.com/f97/gofire/pkg/validators"
 )
 
 // WebServer represents the server command

@@ -24,8 +24,8 @@
                             <span class="text-body-1">{{ $t('Official Website') }}</span>
                         </v-col>
                         <v-col cols="12" md="10" class="mb-6">
-                            <a class="text-body-1" href="https://github.com/f97/n" target="_blank">
-                                https://github.com/f97/n
+                            <a class="text-body-1" href="https://github.com/f97/gofire" target="_blank">
+                                https://github.com/f97/gofire
                             </a>
                         </v-col>
                     </v-row>

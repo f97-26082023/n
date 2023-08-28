@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/f97/n/pkg/settings"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/settings"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // TransactionEditScope represents the scope which transaction can be edited

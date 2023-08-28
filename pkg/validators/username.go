@@ -3,7 +3,7 @@ package validators
 import (
 	"github.com/go-playground/validator/v10"
 
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // ValidUsername returns whether the given user name is valid

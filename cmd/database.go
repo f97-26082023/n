@@ -3,9 +3,9 @@ package cmd
 import (
 	"github.com/urfave/cli/v2"
 
-	"github.com/f97/n/pkg/datastore"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/models"
+	"github.com/f97/gofire/pkg/datastore"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/models"
 )
 
 // Database represents the database command

@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // GoFireCSVFileExporter defines the structure of csv file exporter

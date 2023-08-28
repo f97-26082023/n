@@ -6,12 +6,12 @@ import (
 
 	orderedmap "github.com/wk8/go-ordered-map/v2"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/services"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/services"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 const pageCountForLoadTransactionAmounts = 1000

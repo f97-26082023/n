@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/settings"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/settings"
 )
 
 const openStreetMapTileImageUrlFormat = "https://tile.openstreetmap.org/%s/%s/%s"                       // https://tile.openstreetmap.org/{z}/{x}/{y}.png

@@ -3,11 +3,11 @@ package api
 import (
 	"github.com/pquerna/otp/totp"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/services"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/services"
 )
 
 // AuthorizationsApi represents authorization api

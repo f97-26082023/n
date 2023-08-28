@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // TransactionType represents transaction type

@@ -1,11 +1,11 @@
 package services
 
 import (
-	"github.com/f97/n/pkg/datastore"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/mail"
-	"github.com/f97/n/pkg/settings"
-	"github.com/f97/n/pkg/uuid"
+	"github.com/f97/gofire/pkg/datastore"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/mail"
+	"github.com/f97/gofire/pkg/settings"
+	"github.com/f97/gofire/pkg/uuid"
 )
 
 // ServiceUsingDB represents a service that need to use db

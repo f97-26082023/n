@@ -6,13 +6,13 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/f97/n/pkg/datastore"
-	"github.com/f97/n/pkg/exchangerates"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/mail"
-	"github.com/f97/n/pkg/settings"
-	"github.com/f97/n/pkg/utils"
-	"github.com/f97/n/pkg/uuid"
+	"github.com/f97/gofire/pkg/datastore"
+	"github.com/f97/gofire/pkg/exchangerates"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/mail"
+	"github.com/f97/gofire/pkg/settings"
+	"github.com/f97/gofire/pkg/utils"
+	"github.com/f97/gofire/pkg/uuid"
 )
 
 func initializeSystem(c *cli.Context) (*settings.Config, error) {

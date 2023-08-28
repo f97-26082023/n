@@ -3,12 +3,12 @@ package api
 import (
 	"sort"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/services"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/services"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // TokensApi represents token api

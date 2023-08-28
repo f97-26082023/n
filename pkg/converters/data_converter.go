@@ -3,7 +3,7 @@ package converters
 import (
 	"time"
 
-	"github.com/f97/n/pkg/models"
+	"github.com/f97/gofire/pkg/models"
 )
 
 // DataConverter defines the structure of data exporter

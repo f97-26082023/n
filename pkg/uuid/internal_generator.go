@@ -4,7 +4,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/f97/n/pkg/settings"
+	"github.com/f97/gofire/pkg/settings"
 )
 
 // Length and mask of all information in uuid

@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
 )
 
 // DefaultApi represents default api

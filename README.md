@@ -1,9 +1,9 @@
 # n.f97.xyz
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/f97/n/blob/master/LICENSE)
-[![Latest Build](https://img.shields.io/github/actions/workflow/status/f97/n/docker-snapshot.yml?branch=main)](https://github.com/f97/n/actions)
-[![Go Report](https://goreportcard.com/badge/github.com/f97/n)](https://goreportcard.com/report/github.com/f97/n)
-[![Latest Docker Image Size](https://img.shields.io/docker/image-size/f97/n.svg?style=flat)](https://hub.docker.com/r/f97/n)
-[![Latest Release](https://img.shields.io/github/release/f97/n.svg?style=flat)](https://github.com/f97/n/releases)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/f97/gofire/blob/master/LICENSE)
+[![Latest Build](https://img.shields.io/github/actions/workflow/status/f97/gofire/docker-snapshot.yml?branch=main)](https://github.com/f97/gofire/actions)
+[![Go Report](https://goreportcard.com/badge/github.com/f97/gofire)](https://goreportcard.com/report/github.com/f97/gofire)
+[![Latest Docker Image Size](https://img.shields.io/docker/image-size/f97/gofire.svg?style=flat)](https://hub.docker.com/r/f97/gofire)
+[![Latest Release](https://img.shields.io/github/release/f97/gofire.svg?style=flat)](https://github.com/f97/gofire/releases)
 
 ## Introduction
 n.f97.xyz is a lightweight personal bookkeeping app hosted by yourself. It can be deployed on almost all platforms, including Windows, macOS and Linux on x86, amd64 and ARM architectures. You can even deploy it on an raspberry device. It also supports many different databases, including sqlite and mysql. With docker, you can just deploy it via one command without complicated configuration.
@@ -32,22 +32,22 @@ n.f97.xyz is a lightweight personal bookkeeping app hosted by yourself. It can b
 
 ## Screenshots
 ### Mobile Device
-[![n.f97.xyz](https://raw.githubusercontent.com/wiki/f97/n/img/en.png)](https://raw.githubusercontent.com/wiki/f97/n/img/en.png)
+[![n.f97.xyz](https://raw.githubusercontent.com/wiki/f97/gofire/img/en.png)](https://raw.githubusercontent.com/wiki/f97/gofire/img/en.png)
 
 ## Installation
 ### Ship with docker
-Visit [Docker Hub](https://hub.docker.com/r/f97/n) to see all images and tags.
+Visit [Docker Hub](https://hub.docker.com/r/f97/gofire) to see all images and tags.
 
 Latest Release:
 
-    $ docker run -p8080:8080 f97/n
+    $ docker run -p8080:8080 f97/gofire
 
 Latest Daily Build:
 
-    $ docker run -p8080:8080 f97/n:latest-snapshot
+    $ docker run -p8080:8080 f97/gofire:latest-snapshot
 
 ### Install from binary
-Latest release: [https://github.com/f97/n/releases](https://github.com/f97/n/releases)
+Latest release: [https://github.com/f97/gofire/releases](https://github.com/f97/gofire/releases)
 
     $ ./gofire server run
 
@@ -69,4 +69,4 @@ You can also build docker image, make sure you have [docker](https://www.docker.
 1. [简体中文 (Simplified Chinese)](http://gofire.mayswind.net/zh_Hans)
 
 ## License
-[MIT](https://github.com/f97/n/blob/master/LICENSE)
+[MIT](https://github.com/f97/gofire/blob/master/LICENSE)

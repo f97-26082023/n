@@ -1,7 +1,7 @@
 package requestid
 
 import (
-	"github.com/f97/n/pkg/settings"
+	"github.com/f97/gofire/pkg/settings"
 )
 
 // RequestIdContainer contains the current request id generator

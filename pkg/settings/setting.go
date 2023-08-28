@@ -10,7 +10,7 @@ import (
 
 	"gopkg.in/ini.v1"
 
-	"github.com/f97/n/pkg/errs"
+	"github.com/f97/gofire/pkg/errs"
 )
 
 const (

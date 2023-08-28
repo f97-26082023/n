@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/models"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/models"
 )
 
 const czechNationalBankMinimumRequiredContent = "01 Apr 2021 #64\n" +

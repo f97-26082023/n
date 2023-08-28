@@ -3,7 +3,7 @@ package core
 import (
 	"net/http/httputil"
 
-	"github.com/f97/n/pkg/errs"
+	"github.com/f97/gofire/pkg/errs"
 )
 
 // MiddlewareHandlerFunc represents the middleware handler function

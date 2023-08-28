@@ -1,4 +1,4 @@
-module github.com/f97/n
+module github.com/f97/gofire
 
 go 1.20
 

@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/f97/n/pkg/errs"
+	"github.com/f97/gofire/pkg/errs"
 )
 
 const requestIdFieldKey = "REQUEST_ID"

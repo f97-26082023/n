@@ -1,8 +1,8 @@
 package exchangerates
 
 import (
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/settings"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/settings"
 )
 
 // ExchangeRatesDataSourceContainer contains the current exchange rates data source

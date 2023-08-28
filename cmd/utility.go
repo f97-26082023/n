@@ -7,10 +7,10 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/mail"
-	"github.com/f97/n/pkg/requestid"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/mail"
+	"github.com/f97/gofire/pkg/requestid"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // Utilities represents the utilities command

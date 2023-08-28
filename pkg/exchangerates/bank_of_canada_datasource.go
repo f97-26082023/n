@@ -6,12 +6,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/utils"
-	"github.com/f97/n/pkg/validators"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/utils"
+	"github.com/f97/gofire/pkg/validators"
 )
 
 const bankOfCanadaExchangeRateUrl = "https://www.bankofcanada.ca/valet/observations/group/FX_RATES_DAILY/json?recent=1"

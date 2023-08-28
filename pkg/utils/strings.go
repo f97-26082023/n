@@ -13,7 +13,7 @@ import (
 
 	"golang.org/x/crypto/pbkdf2"
 
-	"github.com/f97/n/pkg/errs"
+	"github.com/f97/gofire/pkg/errs"
 )
 
 const (

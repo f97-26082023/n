@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/models"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/models"
 )
 
 const nationalBankOfPolandMinimumRequiredContent = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" +

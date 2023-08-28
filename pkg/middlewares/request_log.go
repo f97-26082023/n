@@ -3,9 +3,9 @@ package middlewares
 import (
 	"time"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/utils"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/utils"
 )
 
 // RequestLog logs the http request log

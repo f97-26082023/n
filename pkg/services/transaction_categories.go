@@ -5,10 +5,10 @@ import (
 
 	"xorm.io/xorm"
 
-	"github.com/f97/n/pkg/datastore"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/uuid"
+	"github.com/f97/gofire/pkg/datastore"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/uuid"
 )
 
 // TransactionCategoryService represents transaction category service

@@ -1,6 +1,6 @@
 package models
 
-import "github.com/f97/n/pkg/core"
+import "github.com/f97/gofire/pkg/core"
 
 // TokenMaxUserAgentLength represents the maximum size of user agent stored in database
 const TokenMaxUserAgentLength = 255

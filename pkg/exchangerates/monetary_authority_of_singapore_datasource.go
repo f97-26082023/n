@@ -6,12 +6,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/f97/n/pkg/core"
-	"github.com/f97/n/pkg/errs"
-	"github.com/f97/n/pkg/log"
-	"github.com/f97/n/pkg/models"
-	"github.com/f97/n/pkg/utils"
-	"github.com/f97/n/pkg/validators"
+	"github.com/f97/gofire/pkg/core"
+	"github.com/f97/gofire/pkg/errs"
+	"github.com/f97/gofire/pkg/log"
+	"github.com/f97/gofire/pkg/models"
+	"github.com/f97/gofire/pkg/utils"
+	"github.com/f97/gofire/pkg/validators"
 )
 
 const monetaryAuthorityOfSingaporeExchangeRateUrl = "https://eservices.mas.gov.sg/api/action/datastore/search.json?resource_id=95932927-c8bc-4e7a-b484-68a66a24edfe&sort=end_of_day+desc&limit=1"
