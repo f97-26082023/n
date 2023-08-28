@@ -2322,15 +2322,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vuepic/vue-datepicker@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "@vuepic/vue-datepicker@npm:6.0.1"
+"@vuepic/vue-datepicker@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@vuepic/vue-datepicker@npm:6.0.2"
   dependencies:
     date-fns: ^2.30.0
     date-fns-tz: ^1.3.7
   peerDependencies:
     vue: ">=3.2.0"
-  checksum: b83774647b758a829fc331cfb71aca87facd369ae146735f4d065407c4cdf981d30863c24dbfc4082098d19ba2dd73cd31342fab18e4d404a5a3ab89cda6f27e
+  checksum: cd2fbc04466c32cca33678cbab3062b5e2213e0719ecaada6803132bf68e4559979445f26fe54398f387a6fef4a9f3167f3a696eaa3631cbdd798d848cb7b27d
   languageName: node
   linkType: hard
 
@@ -4075,7 +4075,7 @@ __metadata:
     "@mdi/js": ^7.2.96
     "@vitejs/plugin-vue": ^4.3.3
     "@vue/compiler-sfc": ^3.3.4
-    "@vuepic/vue-datepicker": ^6.0.1
+    "@vuepic/vue-datepicker": ^6.0.2
     axios: ^1.4.0
     cbor-js: ^0.1.0
     clipboard: ^2.0.11
