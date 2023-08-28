@@ -22,6 +22,10 @@ input[type=number] {
     pointer-events: none !important;
 }
 
+.smaller {
+    font-size: 0.75rem;
+}
+
 .overflow-y-visible {
     overflow-y: visible !important;
 }
@@ -116,6 +120,10 @@ input[type=number] {
     row-gap: 1rem;
 }
 
+.text-field-append-text {
+    color: rgba(var(--v-theme-on-background), var(--v-medium-emphasis-opacity));
+}
+
 /** Common class for replacing the default style of vuetify **/
 .v-table {
     th {
@@ -157,6 +165,12 @@ input[type=number] {
             background: #161616;
         }
     }
+}
+
+.v-input--density-default .v-field--variant-outlined .v-field__outline__start,
+.v-input--density-comfortable .v-field--variant-outlined .v-field__outline__start,
+.v-input--density-compact .v-field--variant-outlined .v-field__outline__start{
+    flex: 0 0 12px;
 }
 
 .right-bottom-icon .v-badge__badge {

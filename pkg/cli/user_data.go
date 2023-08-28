@@ -26,6 +26,7 @@ type UserDataCli struct {
 	users                    *services.UserService
 	twoFactorAuthorizations  *services.TwoFactorAuthorizationService
 	tokens                   *services.TokenService
+	forgetPasswords          *services.ForgetPasswordService
 }
 
 // Initialize an user data cli singleton instance
@@ -39,6 +40,7 @@ var (
 		users:                    services.Users,
 		twoFactorAuthorizations:  services.TwoFactorAuthorizations,
 		tokens:                   services.Tokens,
+		forgetPasswords:          services.ForgetPasswords,
 	}
 )
 
@@ -161,6 +163,42 @@ func (l *UserDataCli) ModifyUserPassword(c *cli.Context, username string, passwo
 	return nil
 }
 
+// SendPasswordResetMail sends an email with password reset link
+func (l *UserDataCli) SendPasswordResetMail(c *cli.Context, username string) error {
+	if username == "" {
+		log.BootErrorf("[user_data.SendPasswordResetMail] user name is empty")
+		return errs.ErrUsernameIsEmpty
+	}
+
+	user, err := l.users.GetUserByUsername(username)
+
+	if err != nil {
+		log.BootErrorf("[user_data.SendPasswordResetMail] failed to get user by user name \"%s\", because %s", username, err.Error())
+		return err
+	}
+
+	if !user.EmailVerified {
+		log.BootWarnf("[user_data.SendPasswordResetMail] user \"uid:%d\" has not verified email", user.Uid)
+		return errs.ErrEmptyIsNotVerified
+	}
+
+	token, _, err := l.tokens.CreatePasswordResetToken(user, nil)
+
+	if err != nil {
+		log.BootErrorf("[user_data.SendPasswordResetMail] failed to create token for user \"uid:%d\", because %s", user.Uid, err.Error())
+		return err
+	}
+
+	err = l.forgetPasswords.SendPasswordResetEmail(user, token, "")
+
+	if err != nil {
+		log.BootWarnf("[user_data.SendPasswordResetMail] cannot send email to \"%s\", because %s", user.Email, err.Error())
+		return err
+	}
+
+	return nil
+}
+
 // EnableUser sets user enabled according to the specified user name
 func (l *UserDataCli) EnableUser(c *cli.Context, username string) error {
 	if username == "" {
@@ -189,6 +227,40 @@ func (l *UserDataCli) DisableUser(c *cli.Context, username string) error {
 
 	if err != nil {
 		log.BootErrorf("[user_data.DisableUser] failed to set user disabled by user name \"%s\", because %s", username, err.Error())
+		return err
+	}
+
+	return nil
+}
+
+// SetUserEmailVerified sets user email address verified
+func (l *UserDataCli) SetUserEmailVerified(c *cli.Context, username string) error {
+	if username == "" {
+		log.BootErrorf("[user_data.SetUserEmailVerified] user name is empty")
+		return errs.ErrUsernameIsEmpty
+	}
+
+	err := l.users.SetUserEmailVerified(username)
+
+	if err != nil {
+		log.BootErrorf("[user_data.SetUserEmailVerified] failed to set user email address verified by user name \"%s\", because %s", username, err.Error())
+		return err
+	}
+
+	return nil
+}
+
+// SetUserEmailUnverified sets user email address unverified
+func (l *UserDataCli) SetUserEmailUnverified(c *cli.Context, username string) error {
+	if username == "" {
+		log.BootErrorf("[user_data.SetUserEmailUnverified] user name is empty")
+		return errs.ErrUsernameIsEmpty
+	}
+
+	err := l.users.SetUserEmailUnverified(username)
+
+	if err != nil {
+		log.BootErrorf("[user_data.SetUserEmailUnverified] failed to set user email address unverified by user name \"%s\", because %s", username, err.Error())
 		return err
 	}
 

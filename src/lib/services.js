@@ -13,11 +13,11 @@ let needBlockRequest = false;
 let blockedRequests = [];
 
 axios.defaults.baseURL = api.baseApiUrlPath;
-axios.defaults.timeout = 10000; // 10s
+axios.defaults.timeout = api.defaultTimeout;
 axios.interceptors.request.use(config => {
     const token = userState.getToken();
 
-    if (token) {
+    if (token && !config.noAuth) {
         config.headers.Authorization = `Bearer ${token}`;
     }
 
@@ -100,6 +100,22 @@ export default {
             language,
             defaultCurrency,
             firstDayOfWeek
+        });
+    },
+    requestResetPassword: ({ email }) => {
+        return axios.post('forget_password/request.json', {
+            email
+        }, {
+            timeout: api.requestForgetPasswordTimeout
+        });
+    },
+    resetPassword: ({ email, token, password }) => {
+        return axios.post('forget_password/reset/by_token.json?token=' + token, {
+            email,
+            password
+        }, {
+            noAuth: true,
+            ignoreError: true
         });
     },
     logout: () => {

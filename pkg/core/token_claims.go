@@ -11,8 +11,9 @@ type TokenType byte
 
 // Token types
 const (
-	USER_TOKEN_TYPE_NORMAL      TokenType = 1
-	USER_TOKEN_TYPE_REQUIRE_2FA TokenType = 2
+	USER_TOKEN_TYPE_NORMAL         TokenType = 1
+	USER_TOKEN_TYPE_REQUIRE_2FA    TokenType = 2
+	USER_TOKEN_TYPE_PASSWORD_RESET TokenType = 4
 )
 
 // UserTokenClaims represents user token

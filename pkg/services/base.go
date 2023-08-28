@@ -2,6 +2,8 @@ package services
 
 import (
 	"github.com/f97/n/pkg/datastore"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/mail"
 	"github.com/f97/n/pkg/settings"
 	"github.com/f97/n/pkg/uuid"
 )
@@ -34,6 +36,20 @@ type ServiceUsingConfig struct {
 // CurrentConfig returns the current config
 func (s *ServiceUsingConfig) CurrentConfig() *settings.Config {
 	return s.container.Current
+}
+
+// ServiceUsingMailer represents a service that need to use mailer
+type ServiceUsingMailer struct {
+	container *mail.MailerContainer
+}
+
+// SendMail sends an email according to argument
+func (s *ServiceUsingMailer) SendMail(message *mail.MailMessage) error {
+	if s.container.Current == nil {
+		return errs.ErrSMTPServerNotEnabled
+	}
+
+	return s.container.Current.SendMail(message)
 }
 
 // ServiceUsingUuid represents a service that need to use uuid

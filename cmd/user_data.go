@@ -113,6 +113,32 @@ var UserData = &cli.Command{
 			},
 		},
 		{
+			Name:   "user-set-email-verified",
+			Usage:  "Set user email address verified",
+			Action: setUserEmailVerified,
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:     "username",
+					Aliases:  []string{"n"},
+					Required: true,
+					Usage:    "Specific user name",
+				},
+			},
+		},
+		{
+			Name:   "user-set-email-unverified",
+			Usage:  "Set user email address unverified",
+			Action: setUserEmailUnverified,
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:     "username",
+					Aliases:  []string{"n"},
+					Required: true,
+					Usage:    "Specific user name",
+				},
+			},
+		},
+		{
 			Name:   "user-delete",
 			Usage:  "Delete specified user",
 			Action: deleteUser,
@@ -155,6 +181,19 @@ var UserData = &cli.Command{
 			Name:   "user-session-clear",
 			Usage:  "Clear user all sessions",
 			Action: clearUserTokens,
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:     "username",
+					Aliases:  []string{"n"},
+					Required: true,
+					Usage:    "Specific user name",
+				},
+			},
+		},
+		{
+			Name:   "send-password-reset-mail",
+			Usage:  "Send password reset mail",
+			Action: sendPasswordResetMail,
 			Flags: []cli.Flag{
 				&cli.StringFlag{
 					Name:     "username",
@@ -265,6 +304,26 @@ func modifyUserPassword(c *cli.Context) error {
 	return nil
 }
 
+func sendPasswordResetMail(c *cli.Context) error {
+	_, err := initializeSystem(c)
+
+	if err != nil {
+		return err
+	}
+
+	username := c.String("username")
+	err = clis.UserData.SendPasswordResetMail(c, username)
+
+	if err != nil {
+		log.BootErrorf("[user_data.sendPasswordResetMail] error occurs when sending password reset email")
+		return err
+	}
+
+	log.BootInfof("[user_data.sendPasswordResetMail] a password reset email for user \"%s\" has been sent", username)
+
+	return nil
+}
+
 func enableUser(c *cli.Context) error {
 	_, err := initializeSystem(c)
 
@@ -301,6 +360,46 @@ func disableUser(c *cli.Context) error {
 	}
 
 	log.BootInfof("[user_data.disableUser] user \"%s\" has been set disabled", username)
+
+	return nil
+}
+
+func setUserEmailVerified(c *cli.Context) error {
+	_, err := initializeSystem(c)
+
+	if err != nil {
+		return err
+	}
+
+	username := c.String("username")
+	err = clis.UserData.SetUserEmailVerified(c, username)
+
+	if err != nil {
+		log.BootErrorf("[user_data.setUserEmailVerified] error occurs when setting user email address verified")
+		return err
+	}
+
+	log.BootInfof("[user_data.setUserEmailVerified] user \"%s\" email address has been set verified", username)
+
+	return nil
+}
+
+func setUserEmailUnverified(c *cli.Context) error {
+	_, err := initializeSystem(c)
+
+	if err != nil {
+		return err
+	}
+
+	username := c.String("username")
+	err = clis.UserData.SetUserEmailUnverified(c, username)
+
+	if err != nil {
+		log.BootErrorf("[user_data.setUserEmailUnverified] error occurs when setting user email address unverified")
+		return err
+	}
+
+	log.BootInfof("[user_data.setUserEmailUnverified] user \"%s\" email address has been set unverified", username)
 
 	return nil
 }

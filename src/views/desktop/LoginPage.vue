@@ -20,7 +20,7 @@
             </v-col>
             <v-col cols="12" md="4" class="auth-card d-flex flex-column">
                 <div class="d-flex align-center justify-center h-100">
-                    <v-card variant="flat" class="mt-0 px-4 pt-12" max-width="500">
+                    <v-card variant="flat" class="w-100 mt-0 px-4 pt-12" max-width="500">
                         <v-card-text>
                             <h5 class="text-h5 mb-3">{{ $t('Welcome to n.f97.xyz') }}</h5>
                             <p class="mb-0">{{ $t('Please log in with your n.f97.xyz account') }}</p>
@@ -95,6 +95,11 @@
                                             <a href="javascript:void(0);" @click="showMobileQrCode = true">
                                                 <span class="nav-item-title">{{ $t('Use on Mobile Device') }}</span>
                                             </a>
+                                            <v-spacer/>
+                                            <router-link class="text-primary" to="/forgetpassword"
+                                                         :class="{'disabled': !isUserForgetPasswordEnabled}">
+                                                {{ $t('Forget Password?') }}
+                                            </router-link>
                                         </div>
                                     </v-col>
 
@@ -125,7 +130,7 @@
                 </div>
                 <v-spacer/>
                 <div class="d-flex align-center justify-center">
-                    <v-card variant="flat" class="px-4 pb-4" max-width="500">
+                    <v-card variant="flat" class="w-100 px-4 pb-4" max-width="500">
                         <v-card-text class="pt-0">
                             <v-row>
                                 <v-col cols="12" class="text-center">
@@ -176,7 +181,7 @@ import { useSettingsStore } from '@/stores/setting.js';
 import { useExchangeRatesStore } from '@/stores/exchangeRates.js';
 
 import assetConstants from '@/consts/asset.js';
-import { isUserRegistrationEnabled } from '@/lib/server_settings.js';
+import { isUserRegistrationEnabled, isUserForgetPasswordEnabled } from '@/lib/server_settings.js';
 
 import {
     mdiEyeOutline,
@@ -220,6 +225,9 @@ export default {
         },
         isUserRegistrationEnabled() {
             return isUserRegistrationEnabled();
+        },
+        isUserForgetPasswordEnabled() {
+            return isUserForgetPasswordEnabled();
         },
         inputIsEmpty() {
             return !this.username || !this.password;
@@ -281,7 +289,7 @@ export default {
                     self.tempToken = authResponse.token;
                     self.show2faInput = true;
 
-                    this.$nextTick(() => {
+                    self.$nextTick(() => {
                         if (self.$refs.passcodeInput) {
                             self.$refs.passcodeInput.focus();
                             self.$refs.passcodeInput.select();
@@ -300,7 +308,7 @@ export default {
                     self.exchangeRatesStore.getLatestExchangeRates({ silent: true, force: false });
                 }
 
-                this.$router.replace('/');
+                self.$router.replace('/');
             }).catch(error => {
                 self.logining = false;
 
@@ -316,10 +324,10 @@ export default {
                 return;
             }
 
-            if (this.twoFAVerifyType === 'passcode' && !this.passcode) {
+            if (self.twoFAVerifyType === 'passcode' && !self.passcode) {
                 self.$refs.snackbar.showMessage('Passcode cannot be empty');
                 return;
-            } else if (this.twoFAVerifyType === 'backupcode' && !this.backupCode) {
+            } else if (self.twoFAVerifyType === 'backupcode' && !self.backupCode) {
                 self.$refs.snackbar.showMessage('Backup code cannot be empty');
                 return;
             }
@@ -342,7 +350,7 @@ export default {
                     self.exchangeRatesStore.getLatestExchangeRates({ silent: true, force: false });
                 }
 
-                this.$router.replace('/');
+                self.$router.replace('/');
             }).catch(error => {
                 self.verifying = false;
 

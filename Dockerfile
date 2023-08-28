@@ -29,9 +29,10 @@ RUN mkdir -p /gofire && chown 1000:1000 /gofire \
   && mkdir -p /gofire/data && chown 1000:1000 /gofire/data \
   && mkdir -p /gofire/log && chown 1000:1000 /gofire/log
 WORKDIR /gofire
-COPY --from=be-builder --chown=1000:1000 /go/src/github.com/f97/n/gofire /gofire/gofire
-COPY --from=fe-builder --chown=1000:1000 /go/src/github.com/f97/n/dist /gofire/public
+COPY --from=be-builder --chown=1000:1000 /go/src/github.com/mayswind/gofire/gofire /gofire/gofire
+COPY --from=fe-builder --chown=1000:1000 /go/src/github.com/mayswind/gofire/dist /gofire/public
 COPY --chown=1000:1000 conf /gofire/conf
+COPY --chown=1000:1000 templates /gofire/templates
 COPY --chown=1000:1000 LICENSE /gofire/LICENSE
 USER 1000:1000
 EXPOSE 8080

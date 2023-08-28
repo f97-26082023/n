@@ -30,7 +30,7 @@
                                                    :ripple="false" :icon="true" @click="showNav = !showNav">
                                                 <v-icon :icon="icons.menu" size="24" />
                                             </v-btn>
-                                            <span>{{ $t('Statistics Data') }}</span>
+                                            <span>{{ $t('Statistics & Analysis') }}</span>
                                             <v-btn-group class="ml-4" color="default" density="comfortable" variant="outlined" divided>
                                                 <v-btn :icon="icons.left"
                                                        :disabled="loading || query.dateType === allDateRanges.All.type || query.chartDataType === allChartDataTypes.AccountTotalAssets.type || query.chartDataType === allChartDataTypes.AccountTotalLiabilities.type"
@@ -166,7 +166,9 @@
                                             <template :key="itemIdx" v-for="itemIdx in [ 1, 2, 3 ]">
                                                 <v-list-item class="pl-0">
                                                     <template #prepend>
-                                                        <v-icon class="disabled mr-0" size="34" :icon="icons.square" />
+                                                        <div>
+                                                            <v-icon class="disabled mr-0" size="34" :icon="icons.square" />
+                                                        </div>
                                                     </template>
                                                     <div class="d-flex flex-column ml-2">
                                                         <div class="d-flex">

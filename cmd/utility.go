@@ -7,6 +7,8 @@ import (
 
 	"github.com/urfave/cli/v2"
 
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/mail"
 	"github.com/f97/n/pkg/requestid"
 	"github.com/f97/n/pkg/utils"
 )
@@ -25,6 +27,18 @@ var Utilities = &cli.Command{
 					Name:     "id",
 					Required: true,
 					Usage:    "Request ID",
+				},
+			},
+		},
+		{
+			Name:   "send-test-mail",
+			Usage:  "Send an email to specified e-mail address",
+			Action: sendTestMail,
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:     "to",
+					Required: true,
+					Usage:    "To e-mail address",
 				},
 			},
 		},
@@ -55,6 +69,34 @@ func parseRequestId(c *cli.Context) error {
 	newRequestId := defaultGenerator.GenerateRequestId(net.IPv4zero.String())
 	newRequestIdInfo, err := defaultGenerator.ParseRequestIdInfo(newRequestId)
 	printRequestIdInfo(requestId, requestIdInfo, newRequestIdInfo)
+
+	return nil
+}
+
+func sendTestMail(c *cli.Context) error {
+	config, err := initializeSystem(c)
+
+	if err != nil {
+		return err
+	}
+
+	if !config.EnableSMTP || mail.Container.Current == nil {
+		return errs.ErrSMTPServerNotEnabled
+	}
+
+	toAddress := c.String("to")
+
+	err = mail.Container.Current.SendMail(&mail.MailMessage{
+		To:      toAddress,
+		Subject: "ezBookkeeping test e-mail",
+		Body:    "This is a test e-mail",
+	})
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Test e-mail has been sent")
 
 	return nil
 }

@@ -88,6 +88,11 @@ func (s *TokenService) CreateRequire2FAToken(user *models.User, ctx *core.Contex
 	return s.createToken(user, core.USER_TOKEN_TYPE_REQUIRE_2FA, s.getUserAgent(ctx), s.CurrentConfig().TemporaryTokenExpiredTimeDuration)
 }
 
+// CreatePasswordResetToken generates a new password reset token and saves to database
+func (s *TokenService) CreatePasswordResetToken(user *models.User, ctx *core.Context) (string, *core.UserTokenClaims, error) {
+	return s.createToken(user, core.USER_TOKEN_TYPE_PASSWORD_RESET, s.getUserAgent(ctx), s.CurrentConfig().PasswordResetTokenExpiredTimeDuration)
+}
+
 // DeleteToken deletes given token from database
 func (s *TokenService) DeleteToken(tokenRecord *models.TokenRecord) error {
 	if tokenRecord.Uid <= 0 {
@@ -148,7 +153,7 @@ func (s *TokenService) DeleteTokenByClaims(claims *core.UserTokenClaims) error {
 	})
 }
 
-// DeleteTokensBeforeTime deletes tokens that is created before specific tim
+// DeleteTokensBeforeTime deletes tokens that is created before specific time
 func (s *TokenService) DeleteTokensBeforeTime(uid int64, expireTime int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid

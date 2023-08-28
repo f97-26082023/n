@@ -9,6 +9,7 @@ import (
 	"github.com/f97/n/pkg/datastore"
 	"github.com/f97/n/pkg/exchangerates"
 	"github.com/f97/n/pkg/log"
+	"github.com/f97/n/pkg/mail"
 	"github.com/f97/n/pkg/settings"
 	"github.com/f97/n/pkg/utils"
 	"github.com/f97/n/pkg/uuid"
@@ -83,6 +84,15 @@ func initializeSystem(c *cli.Context) (*settings.Config, error) {
 		return nil, err
 	}
 
+	err = mail.InitializeMailer(config)
+
+	if err != nil {
+		if !isDisableBootLog {
+			log.BootErrorf("[initializer.initializeSystem] initializes mailer failed, because %s", err.Error())
+		}
+		return nil, err
+	}
+
 	err = exchangerates.InitializeExchangeRatesDataSource(config)
 
 	if err != nil {
@@ -110,6 +120,7 @@ func getConfigWithoutSensitiveData(config *settings.Config) *settings.Config {
 	}
 
 	clonedConfig.DatabaseConfig.DatabasePassword = "****"
+	clonedConfig.SMTPConfig.SMTPPasswd = "****"
 	clonedConfig.SecretKey = "****"
 
 	return clonedConfig
