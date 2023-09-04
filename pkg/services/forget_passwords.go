@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/locales"
-	"github.com/mayswind/ezbookkeeping/pkg/mail"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/templates"
+	"github.com/f97/n/pkg/core"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/locales"
+	"github.com/f97/n/pkg/mail"
+	"github.com/f97/n/pkg/models"
+	"github.com/f97/n/pkg/settings"
+	"github.com/f97/n/pkg/templates"
 )
 
 const passwordResetUrlFormat = "%sdesktop/#/resetpassword?token=%s"

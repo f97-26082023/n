@@ -6,9 +6,9 @@ import (
 
 	"gopkg.in/mail.v2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/f97/n/pkg/errs"
+	"github.com/f97/n/pkg/settings"
+	"github.com/f97/n/pkg/utils"
 )
 
 // DefaultMailer represents default mailer

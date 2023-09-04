@@ -1,7 +1,7 @@
 package mail
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/f97/n/pkg/settings"
 )
 
 // MailerContainer contains the current mailer
