@@ -63,7 +63,7 @@ func (a *UsersApi) UserRegisterHandler(c *core.Context) (interface{}, *errs.Erro
 		TransactionEditScope: models.TRANSACTION_EDIT_SCOPE_ALL,
 	}
 
-	err = a.users.CreateUser(user)
+	err = a.users.CreateUser(c, user)
 
 	if err != nil {
 		log.ErrorfWithRequestId(c, "[users.UserRegisterHandler] failed to create user \"%s\", because %s", user.Username, err.Error())
@@ -73,11 +73,16 @@ func (a *UsersApi) UserRegisterHandler(c *core.Context) (interface{}, *errs.Erro
 	log.InfofWithRequestId(c, "[users.UserRegisterHandler] user \"%s\" has registered successfully, uid is %d", user.Username, user.Uid)
 
 	authResp := &models.AuthResponse{
-		Need2FA: false,
-		User:    user.ToUserBasicInfo(),
+		Need2FA:         false,
+		NeedVerifyEmail: settings.Container.Current.EnableUserForceVerifyEmail,
+		User:            user.ToUserBasicInfo(),
 	}
 
-	token, claims, err := a.tokens.CreateToken(user, c)
+	if authResp.NeedVerifyEmail {
+		return authResp, nil
+	}
+
+	token, claims, err := a.tokens.CreateToken(c, user)
 
 	if err != nil {
 		log.WarnfWithRequestId(c, "[users.UserRegisterHandler] failed to create token for user \"uid:%d\", because %s", user.Uid, err.Error())
@@ -93,10 +98,73 @@ func (a *UsersApi) UserRegisterHandler(c *core.Context) (interface{}, *errs.Erro
 	return authResp, nil
 }
 
+// UserEmailVerifyHandler sets user email address verified
+func (a *UsersApi) UserEmailVerifyHandler(c *core.Context) (interface{}, *errs.Error) {
+	var userVerifyEmailReq models.UserVerifyEmailRequest
+	err := c.ShouldBindJSON(&userVerifyEmailReq)
+
+	uid := c.GetCurrentUid()
+	user, err := a.users.GetUserById(c, uid)
+
+	if err != nil {
+		if !errs.IsCustomError(err) {
+			log.ErrorfWithRequestId(c, "[users.UserEmailVerifyHandler] failed to get user, because %s", err.Error())
+		}
+
+		return nil, errs.ErrUserNotFound
+	}
+
+	if user.Disabled {
+		log.WarnfWithRequestId(c, "[users.UserEmailVerifyHandler] user \"uid:%d\" is disabled", user.Uid)
+		return nil, errs.ErrUserIsDisabled
+	}
+
+	if user.EmailVerified {
+		log.WarnfWithRequestId(c, "[users.UserEmailVerifyHandler] user \"uid:%d\" email has been verified", user.Uid)
+		return nil, errs.ErrEmailIsVerified
+	}
+
+	err = a.users.SetUserEmailVerified(c, user.Username)
+
+	if err != nil {
+		log.ErrorfWithRequestId(c, "[users.UserEmailVerifyHandler] failed to update user \"uid:%d\" email address verified, because %s", user.Uid, err.Error())
+		return nil, errs.Or(err, errs.ErrOperationFailed)
+	}
+
+	now := time.Now().Unix()
+	err = a.tokens.DeleteTokensByTypeBeforeTime(c, uid, core.USER_TOKEN_TYPE_EMAIL_VERIFY, now)
+
+	if err == nil {
+		log.InfofWithRequestId(c, "[users.UserEmailVerifyHandler] revoke old email verify tokens before unix time \"%d\" for user \"uid:%d\"", now, user.Uid)
+	} else {
+		log.WarnfWithRequestId(c, "[users.UserEmailVerifyHandler] failed to revoke old email verify tokens for user \"uid:%d\", because %s", user.Uid, err.Error())
+	}
+
+	resp := &models.UserVerifyEmailResponse{}
+
+	if userVerifyEmailReq.RequestNewToken {
+		token, claims, err := a.tokens.CreateToken(c, user)
+
+		if err != nil {
+			log.WarnfWithRequestId(c, "[users.UserEmailVerifyHandler] failed to create token for user \"uid:%d\", because %s", user.Uid, err.Error())
+			return resp, nil
+		}
+
+		resp.NewToken = token
+		resp.User = user.ToUserBasicInfo()
+		c.SetTextualToken(token)
+		c.SetTokenClaims(claims)
+
+		log.InfofWithRequestId(c, "[users.UserEmailVerifyHandler] user \"uid:%d\" token created, new token will be expired at %d", user.Uid, claims.ExpiresAt)
+	}
+
+	return resp, nil
+}
+
 // UserProfileHandler returns user profile of current user
 func (a *UsersApi) UserProfileHandler(c *core.Context) (interface{}, *errs.Error) {
 	uid := c.GetCurrentUid()
-	user, err := a.users.GetUserById(uid)
+	user, err := a.users.GetUserById(c, uid)
 
 	if err != nil {
 		if !errs.IsCustomError(err) {
@@ -121,7 +189,7 @@ func (a *UsersApi) UserUpdateProfileHandler(c *core.Context) (interface{}, *errs
 	}
 
 	uid := c.GetCurrentUid()
-	user, err := a.users.GetUserById(uid)
+	user, err := a.users.GetUserById(c, uid)
 
 	if err != nil {
 		if !errs.IsCustomError(err) {
@@ -164,7 +232,7 @@ func (a *UsersApi) UserUpdateProfileHandler(c *core.Context) (interface{}, *errs
 	}
 
 	if userUpdateReq.DefaultAccountId > 0 && userUpdateReq.DefaultAccountId != user.DefaultAccountId {
-		accounts, err := a.accounts.GetAccountsByAccountIds(uid, []int64{userUpdateReq.DefaultAccountId})
+		accounts, err := a.accounts.GetAccountsByAccountIds(c, uid, []int64{userUpdateReq.DefaultAccountId})
 
 		if err != nil || len(accounts) < 1 {
 			return nil, errs.Or(err, errs.ErrUserDefaultAccountIsInvalid)
@@ -242,7 +310,7 @@ func (a *UsersApi) UserUpdateProfileHandler(c *core.Context) (interface{}, *errs
 		return nil, errs.ErrNothingWillBeUpdated
 	}
 
-	keyProfileUpdated, err := a.users.UpdateUser(userNew, modifyUserLanguage)
+	keyProfileUpdated, err := a.users.UpdateUser(c, userNew, modifyUserLanguage)
 
 	if err != nil {
 		log.ErrorfWithRequestId(c, "[users.UserUpdateProfileHandler] failed to update user \"uid:%d\", because %s", user.Uid, err.Error())
@@ -257,7 +325,7 @@ func (a *UsersApi) UserUpdateProfileHandler(c *core.Context) (interface{}, *errs
 
 	if keyProfileUpdated {
 		now := time.Now().Unix()
-		err = a.tokens.DeleteTokensBeforeTime(uid, now)
+		err = a.tokens.DeleteTokensBeforeTime(c, uid, now)
 
 		if err == nil {
 			log.InfofWithRequestId(c, "[users.UserUpdateProfileHandler] revoke old tokens before unix time \"%d\" for user \"uid:%d\"", now, user.Uid)
@@ -265,7 +333,7 @@ func (a *UsersApi) UserUpdateProfileHandler(c *core.Context) (interface{}, *errs
 			log.WarnfWithRequestId(c, "[users.UserUpdateProfileHandler] failed to revoke old tokens for user \"uid:%d\", because %s", user.Uid, err.Error())
 		}
 
-		token, claims, err := a.tokens.CreateToken(user, c)
+		token, claims, err := a.tokens.CreateToken(c, user)
 
 		if err != nil {
 			log.WarnfWithRequestId(c, "[users.UserUpdateProfileHandler] failed to create token for user \"uid:%d\", because %s", user.Uid, err.Error())
@@ -282,4 +350,86 @@ func (a *UsersApi) UserUpdateProfileHandler(c *core.Context) (interface{}, *errs
 	}
 
 	return resp, nil
+}
+
+// UserSendVerifyEmailByUnloginUserHandler sends unlogin user verify email
+func (a *UsersApi) UserSendVerifyEmailByUnloginUserHandler(c *core.Context) (interface{}, *errs.Error) {
+	var userResendVerifyEmailReq models.UserResendVerifyEmailRequest
+	err := c.ShouldBindJSON(&userResendVerifyEmailReq)
+
+	user, err := a.users.GetUserByEmail(c, userResendVerifyEmailReq.Email)
+
+	if err != nil {
+		if !errs.IsCustomError(err) {
+			log.ErrorfWithRequestId(c, "[users.UserSendVerifyEmailByUnloginUserHandler] failed to get user, because %s", err.Error())
+		}
+
+		return nil, errs.ErrUserNotFound
+	}
+
+	if !a.users.IsPasswordEqualsUserPassword(userResendVerifyEmailReq.Password, user) {
+		log.WarnfWithRequestId(c, "[users.UserSendVerifyEmailByUnloginUserHandler] request password not equals to the user password")
+		return nil, errs.ErrUserPasswordWrong
+	}
+
+	if user.Disabled {
+		log.WarnfWithRequestId(c, "[users.UserSendVerifyEmailByUnloginUserHandler] user \"uid:%d\" is disabled", user.Uid)
+		return nil, errs.ErrUserIsDisabled
+	}
+
+	if user.EmailVerified {
+		log.WarnfWithRequestId(c, "[users.UserSendVerifyEmailByUnloginUserHandler] user \"uid:%d\" email has been verified", user.Uid)
+		return nil, errs.ErrEmailIsVerified
+	}
+
+	token, _, err := a.tokens.CreateEmailVerifyToken(c, user)
+
+	if err != nil {
+		log.ErrorfWithRequestId(c, "[users.UserSendVerifyEmailByUnloginUserHandler] failed to create token for user \"uid:%d\", because %s", user.Uid, err.Error())
+		return nil, errs.ErrTokenGenerating
+	}
+
+	err = a.users.SendVerifyEmail(user, token, c.GetClientLocale())
+
+	if err != nil {
+		log.WarnfWithRequestId(c, "[users.UserSendVerifyEmailByUnloginUserHandler] cannot send email to \"%s\", because %s", user.Email, err.Error())
+		return nil, errs.Or(err, errs.ErrOperationFailed)
+	}
+
+	return true, nil
+}
+
+// UserSendVerifyEmailByLoginedUserHandler sends logined user verify email
+func (a *UsersApi) UserSendVerifyEmailByLoginedUserHandler(c *core.Context) (interface{}, *errs.Error) {
+	uid := c.GetCurrentUid()
+	user, err := a.users.GetUserById(c, uid)
+
+	if err != nil {
+		if !errs.IsCustomError(err) {
+			log.ErrorfWithRequestId(c, "[users.UserSendVerifyEmailByLoginedUserHandler] failed to get user, because %s", err.Error())
+		}
+
+		return nil, errs.ErrUserNotFound
+	}
+
+	if user.EmailVerified {
+		log.WarnfWithRequestId(c, "[users.UserSendVerifyEmailByLoginedUserHandler] user \"uid:%d\" email has been verified", user.Uid)
+		return nil, errs.ErrEmailIsVerified
+	}
+
+	token, _, err := a.tokens.CreateEmailVerifyToken(c, user)
+
+	if err != nil {
+		log.ErrorfWithRequestId(c, "[users.UserSendVerifyEmailByLoginedUserHandler] failed to create token for user \"uid:%d\", because %s", user.Uid, err.Error())
+		return nil, errs.ErrTokenGenerating
+	}
+
+	err = a.users.SendVerifyEmail(user, token, c.GetClientLocale())
+
+	if err != nil {
+		log.WarnfWithRequestId(c, "[users.UserSendVerifyEmailByLoginedUserHandler] cannot send email to \"%s\", because %s", user.Email, err.Error())
+		return nil, errs.Or(err, errs.ErrOperationFailed)
+	}
+
+	return true, nil
 }

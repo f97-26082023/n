@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/url"
 
+	"github.com/mayswind/ezbookkeeping/pkg/core"
 	"github.com/mayswind/ezbookkeeping/pkg/errs"
 	"github.com/mayswind/ezbookkeeping/pkg/locales"
 	"github.com/mayswind/ezbookkeeping/pkg/mail"
@@ -34,7 +35,7 @@ var (
 )
 
 // SendPasswordResetEmail sends password reset email according to specified parameters
-func (s *ForgetPasswordService) SendPasswordResetEmail(user *models.User, passwordResetToken string, backupLocale string) error {
+func (s *ForgetPasswordService) SendPasswordResetEmail(c *core.Context, user *models.User, passwordResetToken string, backupLocale string) error {
 	if !s.CurrentConfig().EnableSMTP {
 		return errs.ErrSMTPServerNotEnabled
 	}
@@ -51,7 +52,7 @@ func (s *ForgetPasswordService) SendPasswordResetEmail(user *models.User, passwo
 	expireTimeInMinutes := s.CurrentConfig().PasswordResetTokenExpiredTimeDuration.Minutes()
 	passwordResetUrl := fmt.Sprintf(passwordResetUrlFormat, s.CurrentConfig().RootUrl, url.QueryEscape(passwordResetToken))
 
-	tmpl, err := templates.GetTemplate("email/password_reset")
+	tmpl, err := templates.GetTemplate(templates.TEMPLATE_PASSWORD_RESET)
 
 	if err != nil {
 		return err

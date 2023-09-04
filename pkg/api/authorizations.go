@@ -3,11 +3,12 @@ package api
 import (
 	"github.com/pquerna/otp/totp"
 
-	"github.com/f97/gofire/pkg/core"
-	"github.com/f97/gofire/pkg/errs"
-	"github.com/f97/gofire/pkg/log"
-	"github.com/f97/gofire/pkg/models"
-	"github.com/f97/gofire/pkg/services"
+	"github.com/mayswind/ezbookkeeping/pkg/core"
+	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/mayswind/ezbookkeeping/pkg/log"
+	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/mayswind/ezbookkeeping/pkg/services"
+	"github.com/mayswind/ezbookkeeping/pkg/settings"
 )
 
 // AuthorizationsApi represents authorization api
@@ -36,7 +37,7 @@ func (a *AuthorizationsApi) AuthorizeHandler(c *core.Context) (interface{}, *err
 		return nil, errs.ErrLoginNameOrPasswordInvalid
 	}
 
-	user, err := a.users.GetUserByUsernameOrEmailAndPassword(credential.LoginName, credential.Password)
+	user, err := a.users.GetUserByUsernameOrEmailAndPassword(c, credential.LoginName, credential.Password)
 
 	if err != nil {
 		log.WarnfWithRequestId(c, "[authorizations.AuthorizeHandler] login failed for user \"%s\", because %s", credential.LoginName, err.Error())
@@ -48,7 +49,14 @@ func (a *AuthorizationsApi) AuthorizeHandler(c *core.Context) (interface{}, *err
 		return nil, errs.ErrUserIsDisabled
 	}
 
-	err = a.users.UpdateUserLastLoginTime(user.Uid)
+	if settings.Container.Current.EnableUserForceVerifyEmail && !user.EmailVerified {
+		log.WarnfWithRequestId(c, "[authorizations.AuthorizeHandler] login failed for user \"%s\", because user has not verified email", credential.LoginName)
+		return nil, errs.NewErrorWithContext(errs.ErrEmailIsNotVerified, map[string]string{
+			"email": user.Email,
+		})
+	}
+
+	err = a.users.UpdateUserLastLoginTime(c, user.Uid)
 
 	if err != nil {
 		log.WarnfWithRequestId(c, "[authorizations.AuthorizeHandler] failed to update last login time for user \"uid:%d\", because %s", user.Uid, err.Error())
@@ -57,7 +65,7 @@ func (a *AuthorizationsApi) AuthorizeHandler(c *core.Context) (interface{}, *err
 	twoFactorEnable := a.tokens.CurrentConfig().EnableTwoFactor
 
 	if twoFactorEnable {
-		twoFactorEnable, err = a.twoFactorAuthorizations.ExistsTwoFactorSetting(user.Uid)
+		twoFactorEnable, err = a.twoFactorAuthorizations.ExistsTwoFactorSetting(c, user.Uid)
 
 		if err != nil {
 			log.ErrorfWithRequestId(c, "[authorizations.AuthorizeHandler] failed to check two factor setting for user \"uid:%d\", because %s", user.Uid, err.Error())
@@ -69,9 +77,9 @@ func (a *AuthorizationsApi) AuthorizeHandler(c *core.Context) (interface{}, *err
 	var claims *core.UserTokenClaims
 
 	if twoFactorEnable {
-		token, claims, err = a.tokens.CreateRequire2FAToken(user, c)
+		token, claims, err = a.tokens.CreateRequire2FAToken(c, user)
 	} else {
-		token, claims, err = a.tokens.CreateToken(user, c)
+		token, claims, err = a.tokens.CreateToken(c, user)
 	}
 
 	if err != nil {
@@ -102,7 +110,7 @@ func (a *AuthorizationsApi) TwoFactorAuthorizeHandler(c *core.Context) (interfac
 	}
 
 	uid := c.GetCurrentUid()
-	twoFactorSetting, err := a.twoFactorAuthorizations.GetUserTwoFactorSettingByUid(uid)
+	twoFactorSetting, err := a.twoFactorAuthorizations.GetUserTwoFactorSettingByUid(c, uid)
 
 	if err != nil {
 		log.ErrorfWithRequestId(c, "[authorizations.TwoFactorAuthorizeHandler] failed to get two factor setting for user \"uid:%d\", because %s", uid, err.Error())
@@ -114,21 +122,31 @@ func (a *AuthorizationsApi) TwoFactorAuthorizeHandler(c *core.Context) (interfac
 		return nil, errs.ErrPasscodeInvalid
 	}
 
-	user, err := a.users.GetUserById(uid)
+	user, err := a.users.GetUserById(c, uid)
 
 	if err != nil {
 		log.ErrorfWithRequestId(c, "[authorizations.TwoFactorAuthorizeHandler] failed to get user \"uid:%d\" info, because %s", user.Uid, err.Error())
 		return nil, errs.ErrUserNotFound
 	}
 
+	if user.Disabled {
+		log.WarnfWithRequestId(c, "[authorizations.TwoFactorAuthorizeHandler] user \"uid:%d\" is disabled", user.Uid)
+		return nil, errs.ErrUserIsDisabled
+	}
+
+	if settings.Container.Current.EnableUserForceVerifyEmail && !user.EmailVerified {
+		log.WarnfWithRequestId(c, "[authorizations.TwoFactorAuthorizeHandler] user \"uid:%d\" has not verified email", user.Uid)
+		return nil, errs.ErrEmailIsNotVerified
+	}
+
 	oldTokenClaims := c.GetTokenClaims()
-	err = a.tokens.DeleteTokenByClaims(oldTokenClaims)
+	err = a.tokens.DeleteTokenByClaims(c, oldTokenClaims)
 
 	if err != nil {
 		log.WarnfWithRequestId(c, "[authorizations.TwoFactorAuthorizeHandler] failed to revoke temporary token \"utid:%s\" for user \"uid:%d\", because %s", oldTokenClaims.UserTokenId, user.Uid, err.Error())
 	}
 
-	token, claims, err := a.tokens.CreateToken(user, c)
+	token, claims, err := a.tokens.CreateToken(c, user)
 
 	if err != nil {
 		log.ErrorfWithRequestId(c, "[authorizations.TwoFactorAuthorizeHandler] failed to create token for user \"uid:%d\", because %s", user.Uid, err.Error())
@@ -155,7 +173,7 @@ func (a *AuthorizationsApi) TwoFactorAuthorizeByRecoveryCodeHandler(c *core.Cont
 	}
 
 	uid := c.GetCurrentUid()
-	enableTwoFactor, err := a.twoFactorAuthorizations.ExistsTwoFactorSetting(uid)
+	enableTwoFactor, err := a.twoFactorAuthorizations.ExistsTwoFactorSetting(c, uid)
 
 	if err != nil {
 		log.WarnfWithRequestId(c, "[authorizations.TwoFactorAuthorizeByRecoveryCodeHandler] failed to get two factor setting for user \"uid:%d\", because %s", uid, err.Error())
@@ -166,14 +184,24 @@ func (a *AuthorizationsApi) TwoFactorAuthorizeByRecoveryCodeHandler(c *core.Cont
 		return nil, errs.ErrTwoFactorIsNotEnabled
 	}
 
-	user, err := a.users.GetUserById(uid)
+	user, err := a.users.GetUserById(c, uid)
 
 	if err != nil {
 		log.ErrorfWithRequestId(c, "[authorizations.TwoFactorAuthorizeByRecoveryCodeHandler] failed to get user \"uid:%d\" info, because %s", user.Uid, err.Error())
 		return nil, errs.ErrUserNotFound
 	}
 
-	err = a.twoFactorAuthorizations.GetAndUseUserTwoFactorRecoveryCode(uid, credential.RecoveryCode, user.Salt)
+	if user.Disabled {
+		log.WarnfWithRequestId(c, "[authorizations.TwoFactorAuthorizeByRecoveryCodeHandler] user \"uid:%d\" is disabled", user.Uid)
+		return nil, errs.ErrUserIsDisabled
+	}
+
+	if settings.Container.Current.EnableUserForceVerifyEmail && !user.EmailVerified {
+		log.WarnfWithRequestId(c, "[authorizations.TwoFactorAuthorizeByRecoveryCodeHandler] user \"uid:%d\" has not verified email", user.Uid)
+		return nil, errs.ErrEmailIsNotVerified
+	}
+
+	err = a.twoFactorAuthorizations.GetAndUseUserTwoFactorRecoveryCode(c, uid, credential.RecoveryCode, user.Salt)
 
 	if err != nil {
 		log.WarnfWithRequestId(c, "[authorizations.TwoFactorAuthorizeByRecoveryCodeHandler] failed to get two factor recovery code for user \"uid:%d\", because %s", uid, err.Error())
@@ -181,13 +209,13 @@ func (a *AuthorizationsApi) TwoFactorAuthorizeByRecoveryCodeHandler(c *core.Cont
 	}
 
 	oldTokenClaims := c.GetTokenClaims()
-	err = a.tokens.DeleteTokenByClaims(oldTokenClaims)
+	err = a.tokens.DeleteTokenByClaims(c, oldTokenClaims)
 
 	if err != nil {
 		log.WarnfWithRequestId(c, "[authorizations.TwoFactorAuthorizeByRecoveryCodeHandler] failed to revoke temporary token \"utid:%s\" for user \"uid:%d\", because %s", oldTokenClaims.UserTokenId, user.Uid, err.Error())
 	}
 
-	token, claims, err := a.tokens.CreateToken(user, c)
+	token, claims, err := a.tokens.CreateToken(c, user)
 
 	if err != nil {
 		log.ErrorfWithRequestId(c, "[authorizations.TwoFactorAuthorizeByRecoveryCodeHandler] failed to create token for user \"uid:%d\", because %s", user.Uid, err.Error())
@@ -205,8 +233,9 @@ func (a *AuthorizationsApi) TwoFactorAuthorizeByRecoveryCodeHandler(c *core.Cont
 
 func (a *AuthorizationsApi) getAuthResponse(token string, need2FA bool, user *models.User) *models.AuthResponse {
 	return &models.AuthResponse{
-		Token:   token,
-		Need2FA: need2FA,
-		User:    user.ToUserBasicInfo(),
+		Token:           token,
+		Need2FA:         need2FA,
+		NeedVerifyEmail: false,
+		User:            user.ToUserBasicInfo(),
 	}
 }
