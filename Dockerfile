@@ -1,5 +1,5 @@
 # Build backend binary file
-FROM golang:1.21.0-alpine3.17 AS be-builder
+FROM golang:1.21.1-alpine3.17 AS be-builder
 ARG RELEASE_BUILD
 ENV RELEASE_BUILD=$RELEASE_BUILD
 WORKDIR /go/src/github.com/f97/gofire
