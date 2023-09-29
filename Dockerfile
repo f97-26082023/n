@@ -19,7 +19,7 @@ RUN apk add git
 RUN ./build.sh frontend
 
 # Package docker image
-FROM alpine:3.18.3
+FROM alpine:3.18.4
 LABEL maintainer="MaysWind <i@mayswind.net>"
 RUN addgroup -S -g 1000 gofire && adduser -S -G gofire -u 1000 gofire
 RUN apk --no-cache add tzdata
