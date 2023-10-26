@@ -9,7 +9,7 @@ RUN apk add git gcc g++ libc-dev
 RUN ./build.sh backend
 
 # Build frontend files
-FROM node:20.5.1-alpine3.17 AS fe-builder
+FROM node:21.1.0-alpine3.17 AS fe-builder
 ARG RELEASE_BUILD
 ENV RELEASE_BUILD=$RELEASE_BUILD
 WORKDIR /go/src/github.com/f97/gofire
